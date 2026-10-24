@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.oasisfeng.island.settings
 
 import android.content.ClipData
@@ -10,10 +8,10 @@ import android.os.Build.VERSION_CODES.O
 import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.os.Handler
-import android.preference.Preference
-import android.preference.TwoStatePreference
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.preference.Preference
+import androidx.preference.TwoStatePreference
 import com.oasisfeng.android.ui.Dialogs
 import com.oasisfeng.island.appops.AppOpsCompat.GET_APP_OPS_STATS
 import com.oasisfeng.island.mobile.R
@@ -37,7 +35,7 @@ class GeneralPreferenceFragment: SettingsActivity.SubPreferenceFragment(R.xml.pr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val context = activity; val settings = IslandSettings(context)
+        val context = requireActivity(); val settings = IslandSettings(context)
 
         if (SDK_INT >= O) setup<Preference>(R.string.key_launch_shortcut_prefix) { remove(this) }
 

@@ -1,0 +1,27 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_about_licenses_title">
+        <Preference android:title="Android Open Source Project" android:summary="Apache License, Version 2.0">
+            <intent android:action="android.intent.action.VIEW" android:data="https://source.android.com/" />
+        </Preference>
+        <Preference android:title="Deagle Library" android:summary="Apache License, Version 2.0">
+            <intent android:action="android.intent.action.VIEW" android:data="https://github.com/oasisfeng/deagle" />
+        </Preference>
+        <Preference android:title="Stream Support" android:summary="GNU General Public License, version 2, with the Classpath Exception">
+            <intent android:action="android.intent.action.VIEW" android:data="https://github.com/streamsupport/streamsupport" />
+        </Preference>
+        <Preference android:title="Guava" android:summary="Apache License, Version 2.0">
+            <intent android:action="android.intent.action.VIEW" android:data="https://github.com/google/guava" />
+        </Preference>
+        <Preference android:title="libsuperuser" android:summary="Apache License, Version 2.0">
+            <intent android:action="android.intent.action.VIEW" android:data="https://github.com/Chainfire/libsuperuser" />
+        </Preference>
+        <Preference android:title="Material Tap Target Prompt" android:summary="Apache License, Version 2.0">
+            <intent android:action="android.intent.action.VIEW" android:data="https://github.com/sjwall/MaterialTapTargetPrompt" />
+        </Preference>
+        <Preference android:title="APKParser" android:summary="BSD License 2.0">
+            <intent android:action="android.intent.action.VIEW" android:data="https://github.com/jaredrummler/APKParser" />
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

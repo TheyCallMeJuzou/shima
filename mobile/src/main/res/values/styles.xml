@@ -53,17 +53,40 @@
         <item name="colorOutlineVariant">@color/md_theme_outline_variant</item>
         <item name="android:statusBarColor">?attr/colorSurfaceContainer</item>
         <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
+        <item name="android:alertDialogTheme">@style/Shima.FrameworkDialog.Alert</item>
+        <item name="preferenceTheme">@style/ThemeOverlay.Shima.Preference</item>
     </style>
+
+    <!-- Framework AlertDialog (used by deagle's Dialogs) dressed as a Material 3 dialog -->
+    <style name="Base.Shima.FrameworkDialog" parent="android:Theme.Material.Light.Dialog.Alert" />
+    <style name="Shima.FrameworkDialog.Alert" parent="Base.Shima.FrameworkDialog">
+        <item name="android:windowBackground">@drawable/dialog_background_m3</item>
+        <item name="android:colorBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="android:colorAccent">?attr/colorPrimary</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
+        <item name="android:textColorSecondary">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- AndroidX Preference: no reserved icon space, Material 3 switches -->
+    <style name="ThemeOverlay.Shima.Preference" parent="PreferenceThemeOverlay">
+        <item name="preferenceStyle">@style/Shima.Preference</item>
+        <item name="preferenceCategoryStyle">@style/Shima.Preference.Category</item>
+        <item name="checkBoxPreferenceStyle">@style/Shima.Preference.CheckBox</item>
+        <item name="switchPreferenceCompatStyle">@style/Shima.Preference.Switch</item>
+        <item name="editTextPreferenceStyle">@style/Shima.Preference.EditText</item>
+    </style>
+    <style name="Shima.Preference" parent="Preference.Material"><item name="iconSpaceReserved">false</item></style>
+    <style name="Shima.Preference.Category" parent="Preference.Category.Material"><item name="iconSpaceReserved">false</item></style>
+    <style name="Shima.Preference.CheckBox" parent="Preference.CheckBoxPreference.Material"><item name="iconSpaceReserved">false</item></style>
+    <style name="Shima.Preference.Switch" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="iconSpaceReserved">false</item>
+        <item name="android:widgetLayout">@layout/preference_material_switch</item>
+    </style>
+    <style name="Shima.Preference.EditText" parent="Preference.DialogPreference.EditTextPreference.Material"><item name="iconSpaceReserved">false</item></style>
 
     <style name="AppTheme.NoActionBar" parent="Base.AppTheme" />
 
-    <style name="AppTheme.Settings" parent="Theme.MaterialComponents.DayNight.Bridge"> <!-- These attributes restore the action-bar -->
-        <item name="android:windowActionBar">true</item>
-        <item name="android:windowNoTitle">false</item>
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-    </style>
+    <style name="AppTheme.Settings" parent="Base.AppTheme" />    <!-- Toolbar from layout/activity_settings.xml -->
 
     <style name="AppTheme.BorderlessActionButton" parent="android:Widget.Material.Button.Borderless.Colored">
         <item name="android:layout_height">wrap_content</item>

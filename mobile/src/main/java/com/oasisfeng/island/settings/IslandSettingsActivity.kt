@@ -6,7 +6,6 @@ import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.AlertDialog
-import android.app.Fragment
 import android.app.admin.DevicePolicyManager.ACTION_PROVISION_MANAGED_DEVICE
 import android.app.admin.DevicePolicyManager.ACTION_PROVISION_MANAGED_PROFILE
 import android.appwidget.AppWidgetManager
@@ -28,9 +27,6 @@ import android.os.Build.VERSION_CODES.Q
 import android.os.Build.VERSION_CODES.S
 import android.os.Bundle
 import android.os.Process
-import android.preference.EditTextPreference
-import android.preference.Preference
-import android.preference.TwoStatePreference
 import android.provider.Settings
 import android.text.Editable
 import android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -42,10 +38,17 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.TwoStatePreference
 import com.oasisfeng.android.content.pm.enableComponent
 import com.oasisfeng.android.content.pm.getComponentName
 import com.oasisfeng.android.ui.Dialogs
@@ -67,11 +70,11 @@ import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
  *
  * Created by Oasis on 2019-10-12.
  */
-@ProfileUser class IslandSettingsFragment: android.preference.PreferenceFragment() {
+@ProfileUser class IslandSettingsFragment: PreferenceFragmentCompat() {
 
-    @Deprecated("Deprecated in Java") override fun onResume() {
+    override fun onResume() {
         super.onResume()
-        val activity = activity; val pm = activity.packageManager
+        val activity = requireActivity(); val pm = activity.packageManager
         activity.title = IslandNameManager.getName(activity)
 
         val policies = DevicePolicies(activity.applicationContext)
@@ -192,7 +195,7 @@ import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
     private fun setupPreferenceForManagingAppOps(key: Int, permission: String, op: Int, @StringRes prompt: Int, precondition: Boolean = true) {
         setup<Preference>(key) {
             if (SDK_INT >= P && precondition) {
-                setOnPreferenceClickListener { true.also { OpsManager(activity, permission, op).startOpsManager(prompt) }}
+                setOnPreferenceClickListener { true.also { OpsManager(requireActivity(), permission, op).startOpsManager(prompt) }}
             } else remove(this) }
     }
 
@@ -212,38 +215,31 @@ import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
     }
 
     private fun onIslandRenamed(name: String) {
-        val activity = activity
+        val activity = requireActivity()
         IslandNameManager.setName(activity, name)
         activity.title = name
     }
 
     private fun requestRenaming() {
-        val activity = activity
-        object: EditTextPreference(activity) {
-            init {
-                onAttachedToHierarchy(this@IslandSettingsFragment.preferenceManager)
-                if (text.isNullOrEmpty()) text = IslandNameManager.getName(activity)
-                editText.also { editText ->
-                    editText.addTextChangedListener(object: TextWatcher {
-                        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-                        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        val activity = requireActivity()
+        val editText = EditText(activity).apply {
+            setText(IslandNameManager.getName(activity)); setSingleLine(); setSelectAllOnFocus(true)
+            addTextChangedListener(object: TextWatcher {
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
-                        override fun afterTextChanged(s: Editable) {
-                            if (editText.text.any { it < ' ' }) editText.error = getString(R.string.prompt_invalid_input) }})
-
-                setOnPreferenceChangeListener { _, name -> (editText.error == null).also { if (it)
-                    onIslandRenamed(name.toString()) }}
-
-                showDialog(null) }
-            }
-        }
+                override fun afterTextChanged(s: Editable) {
+                    if (s.any { it < ' ' }) error = getString(R.string.prompt_invalid_input) }}) }
+        val padding = resources.getDimensionPixelSize(R.dimen.margin_medium)
+        AlertDialog.Builder(activity).setView(FrameLayout(activity).apply { setPadding(padding, padding, padding, 0); addView(editText) })
+            .setPositiveButton(android.R.string.ok) { _,_ -> if (editText.error == null) onIslandRenamed(editText.text.toString()) }
+            .setNegativeButton(android.R.string.cancel, null).show()
     }
 
-    @Deprecated("Deprecated in Java") override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setHasOptionsMenu(true)
         preferenceManager.setStorageDeviceProtected()
-        addPreferencesFromResource(R.xml.pref_island)
+        setPreferencesFromResource(R.xml.pref_island, rootKey)
     }
 
     @Deprecated("Deprecated in Java") override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -255,21 +251,24 @@ import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
     @Deprecated("Deprecated in Java") override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_rename -> true.also { requestRenaming() }
-            R.id.menu_test -> true.also { TempDebug.run(activity) }
-            android.R.id.home -> true.also { activity.finish() }
+            R.id.menu_test -> true.also { TempDebug.run(requireActivity()) }
+            android.R.id.home -> true.also { requireActivity().finish() }
             else -> super.onOptionsItemSelected(item)
         }
     }
 }
 
 /** Only enabled in profile managed by Island, as a sole indicator for owner user to identify. */
-class IslandSettingsActivity: CallerAwareActivity() {
+class IslandSettingsActivity: FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (callingPackage != packageName) actionBar?.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME)
+        setContentView(R.layout.activity_settings)
+        setActionBar(findViewById(R.id.toolbar))
+        if ((callingPackage ?: CallerAwareActivity.getCallingPackage(this)) != packageName) actionBar?.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_HOME)
         else actionBar?.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP)
-        fragmentManager.beginTransaction().replace(android.R.id.content, IslandSettingsFragment()).commit()
+        if (savedInstanceState == null)
+            supportFragmentManager.beginTransaction().replace(R.id.settings_container, IslandSettingsFragment()).commit()
         IslandNameManager.syncNameToParentProfile(this)     // In case previous name synchronization failed
     }
 
