@@ -4,4 +4,5 @@
     <string translatable="false" name="setting_app_settings_helper">app_settings_helper</string>
     <string translatable="false" name="setting_app_settings_helper_extended">app_settings_helper_extended</string>
     <string translatable="false" name="setting_dynamic_colors">dynamic_colors</string>
+    <string translatable="false" name="setting_cross_profile_file_access">cross_profile_file_access</string>
 </resources>

@@ -103,6 +103,7 @@
             <intent-filter>
                 <action android:name="android.app.action.PROVISION_MANAGED_PROFILE" /> <!-- For re-provisioning procedure, see IslandSettingsFragment -->
                 <action android:name="android.app.action.PROVISION_MANAGED_DEVICE" />
+                <action android:name="com.theycallmejuzou.shima.action.REFRESH_CROSS_PROFILE_FORWARDING" /> <!-- See CrossProfileFileAccess -->
             </intent-filter>
         </service>
         <activity android:name="com.oasisfeng.island.provisioning.IslandProvisioning$CompletionActivity"

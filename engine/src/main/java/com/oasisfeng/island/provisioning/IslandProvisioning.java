@@ -67,6 +67,7 @@ import com.oasisfeng.island.engine.IslandManager;
 import com.oasisfeng.island.engine.R;
 import com.oasisfeng.island.notification.NotificationIds;
 import com.oasisfeng.island.shuttle.ShuttleProvider;
+import com.oasisfeng.island.engine.CrossProfileFileAccess;
 import com.oasisfeng.island.util.DevicePolicies;
 import com.oasisfeng.island.util.Modules;
 import com.oasisfeng.island.util.OwnerUser;
@@ -130,6 +131,10 @@ public class IslandProvisioning extends IntentService {
 			Log.d(TAG, "Re-provisioning Island.");
 			reprovisionManagedProfile(context);
 			Toasts.show(context, R.string.toast_reprovision_done, Toast.LENGTH_SHORT);
+			return;
+		}
+		if (CrossProfileFileAccess.ACTION_REFRESH.equals(intent.getAction())) {
+			if (! Users.isParentProfile()) refreshCrossProfileForwarding(context);
 			return;
 		}
 		if (Users.isParentProfile() && DevicePolicyManager.ACTION_DEVICE_OWNER_CHANGED.equals(intent.getAction())) {	// ACTION_DEVICE_OWNER_CHANGED is added in Android 6.
@@ -267,6 +272,16 @@ public class IslandProvisioning extends IntentService {
 		if (! owner) setupLauncherActivityInIsland(context);
 	}
 
+	/** Cross-profile intent filters can only be cleared all at once, so clear and re-add the full set (as re-provision does). */
+	@ProfileUser @WorkerThread private static void refreshCrossProfileForwarding(final Context context) {
+		Log.d(TAG, "Refreshing cross-profile forwarding.");
+		final DevicePolicies policies = new DevicePolicies(context);
+		policies.execute(DevicePolicyManager::clearCrossProfileIntentFilters);
+		if (PreferenceManager.getDefaultSharedPreferences(context).getInt(PREF_KEY_PROFILE_PROVISION_TYPE, 0) == 1)
+			CrossProfileIntentFiltersHelper.setFilters(policies);	// Default filters of stock ManagedProvisioning, set by us in manual provision
+		startProfileOwnerPostProvisioningForNonOwnerProfile(context, policies);
+	}
+
 	public static void startDeviceAndProfileOwnerSharedPostProvisioning(final Context context, final DevicePolicies policies) {
 		final boolean isParent = Users.isParentProfile();
 		if (SDK_INT >= O) {
@@ -372,6 +387,8 @@ public class IslandProvisioning extends IntentService {
 					.withDataScheme(ContentResolver.SCHEME_CONTENT).withDataType("application/vnd.android.package-archive"), FLAGS_BIDIRECTIONAL);
 		} catch (final IntentFilter.MalformedMimeTypeException ignored) {}
 		policies.addCrossProfileIntentFilter(IntentFilters.forActions(IntentCompat.ACTION_SHOW_APP_INFO), FLAG_PARENT_CAN_ACCESS_MANAGED);
+		// Shima: let Mainland apps pick files in Island (opt-in)
+		if (CrossProfileFileAccess.isEnabled(context)) CrossProfileFileAccess.addFilters(policies);
 	}
 
 	public IslandProvisioning() {

@@ -58,6 +58,7 @@ import com.oasisfeng.island.IslandNameManager
 import com.oasisfeng.island.TempDebug
 import com.oasisfeng.island.appops.AppOpsCompat
 import com.oasisfeng.island.data.helper.isSystem
+import com.oasisfeng.island.engine.CrossProfileFileAccess
 import com.oasisfeng.island.mobile.BuildConfig
 import com.oasisfeng.island.mobile.R
 import com.oasisfeng.island.notification.NotificationIds
@@ -148,6 +149,12 @@ import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
                                     .toSet().also { policies.setCrossProfilePackages(it) }}
                         .setPositiveButton(R.string.prompt_manage_cross_profile_apps_footer, null)
                         .show().apply { getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false } }}
+
+        setup<TwoStatePreference>(com.oasisfeng.island.shared.R.string.setting_cross_profile_file_access) {     // Shima: let Mainland apps pick files in Island
+            if (Users.isParentProfile() || ! policies.isProfileOwner) return@setup remove(this)
+            onChange { enabled -> true.also {
+                preferenceManager.sharedPreferences?.edit()?.putBoolean(key, enabled)?.commit()  // Before the refresh reads it
+                ContextCompat.startForegroundService(activity, Intent(CrossProfileFileAccess.ACTION_REFRESH).setPackage(Modules.MODULE_ENGINE)) }}}
 
         setup<Preference>(R.string.key_cross_profile_widgets) {
             val widgetManager = activity.getSystemService<AppWidgetManager>()
