@@ -1,5 +1,7 @@
 # Shima
 
+<img src="art/icon/shima-icon-512.png" alt="Shima icon" width="128" />
+
 Shima (島, "island") is a fork of [Island](https://github.com/oasisfeng/island) by Oasis Feng, based on its `dev` branch (v6.4.2).
 It installs as `com.theycallmejuzou.shima` and can live side-by-side with the original Island.
 
