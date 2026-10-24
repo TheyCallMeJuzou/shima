@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Global style colors (sakura palette, matching the launcher icon) -->
-    <color name="primary">#B4416D</color>
-    <color name="primary_dark">#8E2450</color>
-    <color name="accent">#EC6A8C</color>
+    <!-- Brand colours (notifications etc.), from the Material 3 scheme in theme_colors.xml -->
+    <color name="primary">@color/md_theme_primary</color>
+    <color name="primary_dark">@color/md_theme_on_primary_fixed_variant</color>
+    <color name="accent">@color/md_theme_primary_container</color>
 
     <color name="action_icon">@android:color/black</color>
 </resources>

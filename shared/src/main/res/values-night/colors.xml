@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Global style colors (sakura palette, matching the launcher icon) -->
-    <color name="primary">#7A2346</color>
-    <color name="primary_dark">#4A1029</color>
-    <color name="accent">#D9577F</color>
-
     <color name="action_icon">@android:color/white</color>
 </resources>

@@ -50,8 +50,7 @@ object AppExtraInfo {
 	}
 
 	@Composable private fun addExtraInfo(context: Context, info: IslandAppInfo = buildPreviewAppInfo()) {
-		val theme = context.resources.newTheme().apply { applyStyle(R.style.AppTheme_Dark, true) }
-		val textColor = Color(context.resources.getColor(R.color.textSecondary, theme))
+		val textColor = Color(context.getColor(R.color.text_secondary))     // Resolved against the bottom sheet's (Material 3) theme
 
 		addExtraInfo(textColor, info, info.canQueryAllPackages(), info.canManageExternalStorage())
 	}

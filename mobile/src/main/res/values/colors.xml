@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Semantic colors -->
-    <color name="textPrimary">@color/primary_dark</color>
-    <color name="textSecondary">@android:color/darker_gray</color>
-    <color name="background">#F3F3F3</color>
-    <color name="header_background">@android:color/white</color>
-    <color name="background_highlight">@android:color/white</color>
-    <color name="card_background">@android:color/white</color>
-    <color name="card_attention">#FFFFE0E8</color>
+    <!-- Semantic colours that follow the Material 3 theme (incl. system colours) live in res/color/. -->
     <color name="card_button">#259B24</color>
-    <!-- Specific colors -->
-    <color name="state_alive">#D8457A</color>
-    <color name="state_frozen">#55617A</color> <!-- Cool slate, distinct from the rose "alive" -->
-    <color name="state_other">@android:color/black</color>
-    <color name="side_control">@color/primary_dark</color>
 </resources>

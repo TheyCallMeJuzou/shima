@@ -23,16 +23,13 @@
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background">
+            android:background="@color/header_background">
 
             <Toolbar
                 android:id="@+id/actionbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:background="?android:attr/colorPrimary"
-                android:elevation="4dp"
-                android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
-                android:popupTheme="@style/AppThemeOverlay.Dark.Popup" />
+                android:background="@color/header_background" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chips"
@@ -48,39 +45,30 @@
                 bind:shown="@{apps.mChipsVisible &amp;&amp; ! featured.visible}">
 
                 <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    app:chipStrokeColor="@color/accent" app:chipStrokeWidth="2dp"
-                    app:chipIconTint="@color/accent" app:rippleColor="@color/accent" app:chipBackgroundColor="@color/chip_background_color"
-                    app:checkedIconVisible="false" android:checked="@={apps.getFilterIncludeHiddenSystemApps()}"
+                    android:checked="@={apps.getFilterIncludeHiddenSystemApps()}"
                     android:text="@string/filter_include_hidden_system_components" />
 
                 <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    app:chipStrokeColor="@color/accent" app:chipStrokeWidth="2dp"
-                    app:chipIconTint="@color/accent" app:rippleColor="@color/accent" app:chipBackgroundColor="@color/chip_background_color"
-                    app:checkedIconVisible="false" android:checked="@={apps.getFilterCanQueryAllPackages()}"
+                    android:checked="@={apps.getFilterCanQueryAllPackages()}"
                     android:text="@string/filter_can_query_all_apps"
                     android:visible="@bool/since_api_31" />
 
                 <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    app:chipStrokeColor="@color/accent" app:chipStrokeWidth="2dp"
-                    app:chipIconTint="@color/accent" app:rippleColor="@color/accent" app:chipBackgroundColor="@color/chip_background_color"
-                    app:checkedIconVisible="false" android:checked="@={apps.getFilterCanManageExternalStorage()}"
+                    android:checked="@={apps.getFilterCanManageExternalStorage()}"
                     android:text="@string/filter_can_manage_external_storage"
                     android:visible="@bool/since_api_29" />
 
                 <com.google.android.material.chip.Chip
-                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    style="@style/Widget.Material3.Chip.Input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checkable="false"
-                    app:chipStrokeColor="@color/primary"
-                    app:chipStrokeWidth="2dp"
-                    app:chipBackgroundColor="@color/chip_background_color"
                     bind:shown="@{! apps.getFilterText().isEmpty()}"
                     bind:onCloseIconClickListener="@{view -> apps.onQueryTextCleared()}"
                     tools:text="@{apps.getFilterText()}" />
@@ -92,8 +80,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
+                android:background="@color/header_background"
                 bind:tabInlineLabel="true"
-                bind:tabSelectedTextColor="@color/textPrimary"
+                bind:tabSelectedTextColor="@color/text_primary"
                 bind:tabMode="scrollable" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -155,8 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
-            android:theme="@style/AppTheme.Dark"
-            android:background="?android:attr/colorPrimaryDark"
+            android:background="?attr/colorSurfaceContainerHigh"
             android:elevation="@dimen/elevation_card_raised"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             app:behavior_hideable="true"
@@ -169,9 +157,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:background="?android:attr/colorPrimaryDark"
-                android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
-                android:popupTheme="@style/AppThemeOverlay.Dark.Popup"
                 android:title="@{apps.mSelection.info.label}" tools:title="Island"
                 bind:menu="@{apps.actions_menu}"
                 android:onMenuItemClick="@{item -> apps.onActionClick(context, item)}"
