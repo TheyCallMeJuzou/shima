@@ -7,12 +7,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,7 +36,7 @@ class AppClonesBottomSheet(
     @Suppress("unused") // For Compose Preview
     constructor(): this(mapOf(UserHandles.SYSTEM to "Mainland", UserHandles.of(10) to "Island"), null, { false }, { _,_ -> })
 
-    @Composable @Preview @OptIn(ExperimentalMaterialApi::class)
+    @Composable @Preview @OptIn(ExperimentalMaterial3Api::class)
     fun compose(showShizuku: Boolean, showPlayStore: Boolean, mode: MutableState<Int?>) {
         val selectedMode: MutableState<Int?> = rememberSaveable { mode }
 
@@ -45,13 +49,14 @@ class AppClonesBottomSheet(
                         add(stringResource(R.string.option_clone_via_play_store) to IslandAppClones.MODE_PLAY_STORE) }
                 }, selectedMode, arrangement = Arrangement.Center) }
 
-            ListItem(text = { Text(stringResource(R.string.prompt_clone_app_to), color = MaterialTheme.colors.onBackground) })
+            val itemColors = ListItemDefaults.colors(containerColor = Color.Transparent)     // Sit on the sheet's own surface
+            ListItem(headlineContent = { Text(stringResource(R.string.prompt_clone_app_to)) }, colors = itemColors)
 
             for ((user, label) in targets) {
                 val icon = icons?.get(user)?.toBitmap()?.asImageBitmap()
-                ListItem(text = { Text(label, color = MaterialTheme.colors.onBackground) },
-                    icon = { if (icon != null) Image(icon, null) },
-                    modifier = if (isCloned(user)) Modifier.alpha(ContentAlpha.disabled)
+                ListItem(headlineContent = { Text(label) }, colors = itemColors,
+                    leadingContent = { if (icon != null) Image(icon, null) },
+                    modifier = if (isCloned(user)) Modifier.alpha(0.38f/* Material disabled */)
                     else Modifier.clickable { clone(user, selectedMode.value ?: IslandAppClones.MODE_INSTALLER) }) }}
     }}
 }

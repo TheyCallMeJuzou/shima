@@ -7,10 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.contentColorFor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
@@ -26,13 +25,16 @@ import androidx.compose.ui.unit.dp
             ToggleableChip(chip.first, id == selectedId) { selectedIdState.value = if (it) id else null }}}
 }
 
+/** Styled as a Material 3 filter chip: tonal fill when selected, outlined otherwise. */
 @Composable fun ToggleableChip(label: String, checked: Boolean, onValueChange: (Boolean) -> Unit) {
-    val fillColor = if (checked) MaterialTheme.colors.primary else Color.Transparent
-    val textColor = contentColorFor(if (checked) fillColor else MaterialTheme.colors.background) // contentColorFor() does not work for Color.Transparent
+    val colors = MaterialTheme.colorScheme
+    val fillColor = if (checked) colors.secondaryContainer else Color.Transparent
+    val textColor = if (checked) colors.onSecondaryContainer else colors.onSurfaceVariant
 
-    Surface(shape = RoundedCornerShape(24.dp), border = BorderStroke(1.dp, color = MaterialTheme.colors.primary),
+    Surface(shape = RoundedCornerShape(8.dp), border = if (checked) null else BorderStroke(1.dp, color = colors.outline),
         modifier = Modifier.padding(8.dp), color = fillColor) {
 
-        Row(modifier = Modifier/*.background(fillColor)*/.toggleable(value = checked, onValueChange = onValueChange)) {
-            Text(text = label, color = textColor, style = MaterialTheme.typography.body1, modifier = Modifier.padding(12.dp)) }}
+        Row(modifier = Modifier.toggleable(value = checked, onValueChange = onValueChange)) {
+            Text(text = label, color = textColor, style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) }}
 }

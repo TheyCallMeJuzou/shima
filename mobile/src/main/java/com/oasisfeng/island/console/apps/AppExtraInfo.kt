@@ -1,7 +1,6 @@
 package com.oasisfeng.island.console.apps
 
 import android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
-import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Build.VERSION.SDK_INT
@@ -10,10 +9,10 @@ import android.os.Build.VERSION_CODES.TIRAMISU
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -38,6 +37,7 @@ import com.oasisfeng.island.data.IslandAppInfo
 import com.oasisfeng.island.data.IslandAppListProvider
 import com.oasisfeng.island.mobile.R
 import com.oasisfeng.island.model.AppViewModel
+import com.oasisfeng.island.ui.IslandTheme
 
 object AppExtraInfo {
 
@@ -45,21 +45,14 @@ object AppExtraInfo {
 		extraInfo.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
 		extraInfo.setContent {
 			val selected = selection.observeAsState()
-			selected.value?.info()?.also { addExtraInfo(extraInfo.context, it) }
+			selected.value?.info()?.also { ExtraInfo(it, it.canQueryAllPackages(), it.canManageExternalStorage()) }
 		}
-	}
-
-	@Composable private fun addExtraInfo(context: Context, info: IslandAppInfo = buildPreviewAppInfo()) {
-		val textColor = Color(context.getColor(R.color.text_secondary))     // Resolved against the bottom sheet's (Material 3) theme
-
-		addExtraInfo(textColor, info, info.canQueryAllPackages(), info.canManageExternalStorage())
 	}
 }
 
-@Composable @Preview(backgroundColor = 0x3F51B5, showBackground = true)
-private fun addExtraInfo(textColor: Color = Color(0xffaaaaaa), info: ApplicationInfo = buildPreviewAppInfo(),
-                         canQueryAllPackages: Boolean = true, canManageExternalStorage: Boolean = true) {
-	MaterialTheme { Surface(contentColor = textColor, color = Color.Transparent) {
+@Composable @Preview(showBackground = true)
+private fun ExtraInfo(info: ApplicationInfo = buildPreviewAppInfo(), canQueryAllPackages: Boolean = true, canManageExternalStorage: Boolean = true) {
+	IslandTheme { Surface(contentColor = MaterialTheme.colorScheme.onSurfaceVariant, color = Color.Transparent) {
 		Column(Modifier.padding(vertical = 10.dp, horizontal = 16.dp)) {
 			val targetSdk = info.targetSdkVersion
 			Text(stringResource(R.string.info_target_sdk, Versions.getAndroidVersionNumber(targetSdk)))
