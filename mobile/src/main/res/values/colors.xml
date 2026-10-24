@@ -7,11 +7,11 @@
     <color name="header_background">@android:color/white</color>
     <color name="background_highlight">@android:color/white</color>
     <color name="card_background">@android:color/white</color>
-    <color name="card_attention">#FFFFE082</color>
+    <color name="card_attention">#FFFFE0E8</color>
     <color name="card_button">#259B24</color>
     <!-- Specific colors -->
-    <color name="state_alive">#FF8F00</color>
-    <color name="state_frozen">@color/primary_dark</color>
+    <color name="state_alive">#D8457A</color>
+    <color name="state_frozen">#55617A</color> <!-- Cool slate, distinct from the rose "alive" -->
     <color name="state_other">@android:color/black</color>
     <color name="side_control">@color/primary_dark</color>
 </resources>
