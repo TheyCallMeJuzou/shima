@@ -37,9 +37,9 @@ public class Api {
 
 	interface v2 extends v1 {
 		/* Runtime permissions required for certain APIs */
-		String PERMISSION_FREEZE_PACKAGE = "com.oasisfeng.island.permission.FREEZE_PACKAGE";
-		String PERMISSION_LAUNCH_PACKAGE = "com.oasisfeng.island.permission.LAUNCH_PACKAGE";
-		String PERMISSION_SUSPEND_PACKAGE = "com.oasisfeng.island.permission.SUSPEND_PACKAGE";
+		String PERMISSION_FREEZE_PACKAGE = "com.theycallmejuzou.shima.permission.FREEZE_PACKAGE";
+		String PERMISSION_LAUNCH_PACKAGE = "com.theycallmejuzou.shima.permission.LAUNCH_PACKAGE";
+		String PERMISSION_SUSPEND_PACKAGE = "com.theycallmejuzou.shima.permission.SUSPEND_PACKAGE";
 
 		/**
 		 * Freeze the app(s) specified by Intent data with "package" or "packages" (comma-separated) scheme.
@@ -63,13 +63,13 @@ public class Api {
 		 * Suspend the app(s) specified by Intent data with "package" or "packages" (comma-separated) scheme. (requires Android N+)
 		 * <p>Result: {@link Activity#RESULT_OK} for success, {@link Activity#RESULT_CANCELED} for failure or {@link latest#RESULT_UNVERIFIED_IDENTITY}
 		 */
-		@Since(2.1) @RequiresPermission(PERMISSION_SUSPEND_PACKAGE) String ACTION_SUSPEND = "com.oasisfeng.island.action.SUSPEND";
+		@Since(2.1) @RequiresPermission(PERMISSION_SUSPEND_PACKAGE) String ACTION_SUSPEND = "com.theycallmejuzou.shima.action.SUSPEND";
 
 		/**
 		 * Unsuspend the app(s) specified by Intent data with "package" or "packages" (comma-separated) scheme. (requires Android N+)
 		 * <p>Result: {@link Activity#RESULT_OK} for success, {@link Activity#RESULT_CANCELED} for failure or {@link latest#RESULT_UNVERIFIED_IDENTITY}
 		 */
-		@Since(2.1) @RequiresPermission(PERMISSION_SUSPEND_PACKAGE) String ACTION_UNSUSPEND = "com.oasisfeng.island.action.UNSUSPEND";
+		@Since(2.1) @RequiresPermission(PERMISSION_SUSPEND_PACKAGE) String ACTION_UNSUSPEND = "com.theycallmejuzou.shima.action.UNSUSPEND";
 
 		/**
 		 * {@link android.app.PendingIntent} extra required for all types of API invocation except {@link Activity#startActivityForResult(Intent, int)}.
@@ -81,12 +81,12 @@ public class Api {
 	}
 
 	interface v1 {
-		@Since(1.0) String ACTION_FREEZE   = "com.oasisfeng.island.action.FREEZE";
-		@Since(1.1) String ACTION_UNFREEZE = "com.oasisfeng.island.action.UNFREEZE";
+		@Since(1.0) String ACTION_FREEZE   = "com.theycallmejuzou.shima.action.FREEZE";
+		@Since(1.1) String ACTION_UNFREEZE = "com.theycallmejuzou.shima.action.UNFREEZE";
 
 		/** Data: Activity intent to launch, in "intent:" scheme. {@link Intent#EXTRA_USER} is supported for shuttle. */
 		@RestrictTo(LIBRARY)	// Internal API
-		@Since(1.1) String ACTION_LAUNCH   = "com.oasisfeng.island.action.LAUNCH";
+		@Since(1.1) String ACTION_LAUNCH   = "com.theycallmejuzou.shima.action.LAUNCH";
 
 		/**
 		 * {@link android.app.PendingIntent} extra required for all types of API invocation except {@link Activity#startActivityForResult(Intent, int)}

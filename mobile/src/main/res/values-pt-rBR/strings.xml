@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="label_searchable">Apps no Island</string>
-    <string name="label_activity_island_settings">Configurações do Island</string>
+    <string name="label_searchable">Apps no Shima</string>
+    <string name="label_activity_island_settings">Configurações do Shima</string>
 
-    <string name="tab_island">Island</string>
+    <string name="tab_island">Shima</string>
     <string name="tab_discovery">Discovery</string>
 
     <string name="status_alive">Ativo</string>
@@ -14,31 +14,31 @@
     <string name="status_appendix_system">Sistema</string>
     <string name="status_appendix_critical">crítico</string>
     <string name="status_appendix_cloned">clonado</string>
-    <string name="status_appendix_exclusive">apenas no Island</string>
+    <string name="status_appendix_exclusive">apenas no Shima</string>
 
     <string name="featured_button_setup">Configurar</string>
     <string name="featured_adb_secure_title">ADB Seguro</string>
-    <string name="featured_adb_secure_island_title">ADB Seguro (Apenas para o espaço do Island)</string>
-    <string name="featured_adb_secure_description">Restringir o Shell de ADB (Android Debugging Bridge) de executar comandos perigosos (instalar APKs, alterar configurações, etc.).\n\nSe o Mainland é gerenciada pelo Island, isto poderia proteger todo o dispositivo (incluindo captura de dados ou a instalação não solicitada de apps via cabo USB de dispositivo externo fisicamente conectado).</string>
+    <string name="featured_adb_secure_island_title">ADB Seguro (Apenas para o espaço do Shima)</string>
+    <string name="featured_adb_secure_description">Restringir o Shell de ADB (Android Debugging Bridge) de executar comandos perigosos (instalar APKs, alterar configurações, etc.).\n\nSe o Mainland é gerenciada pelo Shima, isto poderia proteger todo o dispositivo (incluindo captura de dados ou a instalação não solicitada de apps via cabo USB de dispositivo externo fisicamente conectado).</string>
     <string name="featured_managed_mainland_title">Aumentar capacidade do Mainland</string>
 
-    <string name="featured_managed_mainland_description">Assuma o controle de TODOS os apps (no Island e no Mainland) e se beneficie de recursos exclusivos. (mais detalhes em guia online)</string>
+    <string name="featured_managed_mainland_description">Assuma o controle de TODOS os apps (no Shima e no Mainland) e se beneficie de recursos exclusivos. (mais detalhes em guia online)</string>
     <string name="featured_greenify_title">Greenify</string>
     <string name="featured_greenify_description">Depois que a tela for desligada, suspender automaticamente os apps selecionados se não estiverem em uso ativo.</string>
     <string name="featured_appops_title">App Ops</string>
     <string name="featured_appops_description">App Ops é uma ferramenta poderosa para bloquear seletivamente algumas intenções de acesso aos dados de apps de forma inteligente, mesmo que a permissão relacionada seja concedida pelo usuário.</string>
 
     <string name="setup_profile_welcome">Bem-vindo</string>
-    <string name="setup_island_intro">\"Island\" é um ambiente de Sandbox para os apps selecionados e clonados que não permita o acesso a seus dados pessoais (incluindo registros de ligações, contatos, etc.) mesmo que as permissões sejam concedidas.
+    <string name="setup_island_intro">\"Shima\" é um ambiente de Sandbox para os apps selecionados e clonados que não permita o acesso a seus dados pessoais (incluindo registros de ligações, contatos, etc.) mesmo que as permissões sejam concedidas.
 \n\nApp clonado funciona paralelamente ao lado do instalado, com a sua própria cópia de dados separada. Ele também pode ser suspenso sob demanda,o ícone do lançador desaparecerá e suas funções em segundo plano serão completamente bloqueadas.
-\n\nAo criar um ambiente de Sandbox, você autoriza o Island a atuar como administrador do dispositivo no \"Perfil de Trabalho\", com o privilégio de gerenciar
-o ambiente de Sandbox. O Island nunca coleta dados relacionados à sua privacidade, por favor leia nossa política de privacidade na Loja do Google Play para mais detalhes.</string>
+\n\nAo criar um ambiente de Sandbox, você autoriza o Shima a atuar como administrador do dispositivo no \"Perfil de Trabalho\", com o privilégio de gerenciar
+o ambiente de Sandbox. O Shima nunca coleta dados relacionados à sua privacidade, por favor leia nossa política de privacidade na Loja do Google Play para mais detalhes.</string>
     <string name="setup_accept">Aceitar</string>
     <string name="setup_error_managed_profile_not_supported">Desculpe, o recurso necessário de \"Perfil Gerenciado\" não é suportado neste dispositivo.</string>
-    <string name="setup_error_provisioning_incomplete">A configuração do Island não está completa, a tentativa anterior podia não ser bem sucedida.\n\nSe o ROM do seu dispositivo ou a ferramenta de terceiros forçar o controle de início automático (ou uma funcionalidade similar de restrição no segundo plano), por favor, coloque o Island na lista branca em configurações relacionadas, após disso continue com a configuração.</string>
-    <string name="setup_error_managed_device">Desculpe, o Island não pode ser configurado devido a que o dispositivo atualmente está sendo gerenciado por <b>%1$s</b>.</string>
+    <string name="setup_error_provisioning_incomplete">A configuração do Shima não está completa, a tentativa anterior podia não ser bem sucedida.\n\nSe o ROM do seu dispositivo ou a ferramenta de terceiros forçar o controle de início automático (ou uma funcionalidade similar de restrição no segundo plano), por favor, coloque o Shima na lista branca em configurações relacionadas, após disso continue com a configuração.</string>
+    <string name="setup_error_managed_device">Desculpe, o Shima não pode ser configurado devido a que o dispositivo atualmente está sendo gerenciado por <b>%1$s</b>.</string>
     <string name="setup_error_missing_managed_provisioning">Desculpe, o recurso necessário \"Perfis de Android\" pode não ser totalmente suportado no seu dispositivo.</string>
-    <string name="setup_solution_for_cancelled_provision">Não consegue configurar o Island?\n\nSe você recebeu uma mensagem de erro durante o processo de configuração do Island, por favor, consulte o site com soluções de problemas online. Se todas as soluções não funcionarem e seu dispositivo estiver com Root, você pode, alternativamente, configurar o Island via Root.</string>
+    <string name="setup_solution_for_cancelled_provision">Não consegue configurar o Shima?\n\nSe você recebeu uma mensagem de erro durante o processo de configuração do Shima, por favor, consulte o site com soluções de problemas online. Se todas as soluções não funcionarem e seu dispositivo estiver com Root, você pode, alternativamente, configurar o Shima via Root.</string>
 
     <string name="tip_empty_app_list">Nenhum app aqui.\nFavor alterar para outra vista.</string>
 
@@ -47,7 +47,7 @@ o ambiente de Sandbox. O Island nunca coleta dados relacionados à sua privacida
     <string name="button_account_settings">Configurações de Conta</string>
     <string name="button_have_checked">Verifiquei</string>
     <string name="button_setup_troubleshooting">Soluções de problemas (web)</string>
-    <string name="button_setup_island_with_root">Configurar o Island via Root</string>
+    <string name="button_setup_island_with_root">Configurar o Shima via Root</string>
 
     <string name="action_clone">Clonar</string>
     <string name="action_freeze">Suspender</string>
@@ -74,30 +74,30 @@ o ambiente de Sandbox. O Island nunca coleta dados relacionados à sua privacida
 
     <string name="dialog_title_warning">AVISO</string>
     <string name="dialog_manual_setup"><b>Para usuários avançados</b>:\nEsta limitação também poderia ser solucionada com uma única configuração manual via PC conectado ao USB.</string>
-    <string name="dialog_clone_incapable_explanation">Desculpe, o Island não pode clonar apps sem uma Loja de apps integrada ao seu dispositivo (de preferência a loja de Google Play) até o Android 5.1. Consulte o FAQ para as soluções.</string>
+    <string name="dialog_clone_incapable_explanation">Desculpe, o Shima não pode clonar apps sem uma Loja de apps integrada ao seu dispositivo (de preferência a loja de Google Play) até o Android 5.1. Consulte o FAQ para as soluções.</string>
     <string name="dialog_greenify_title">Integração com Greenify</string>
-    <string name="dialog_greenify_explanation">Para economizar armazenamento e evitar o consumo desnecessário da bateria, o Island não tem serviço de segundo plano integrado. Em vez disso, ele delega o trabalho de suspensão automática à Greenify, aproveitando seu sofisticado gerenciamento automático de hibernação.</string>
+    <string name="dialog_greenify_explanation">Para economizar armazenamento e evitar o consumo desnecessário da bateria, o Shima não tem serviço de segundo plano integrado. Em vez disso, ele delega o trabalho de suspensão automática à Greenify, aproveitando seu sofisticado gerenciamento automático de hibernação.</string>
     <string name="dialog_greenify_version_too_low">Greenify precisa ser atualizado para uma versão mais recente.</string>
-    <string name="dialog_reactivate_message">Island foi inesperadamente desativado, por favor, conceda a permissão de Administrador do Dispositivo para reativar.</string>
-    <string name="dialog_destroy_message">Tem certeza que quer destruir todo no Island? Você perderá TODOS OS DADOS DO ISLAND.\n\nNão se preocupe, os apps e os dados fora do Island NUNCA serão afetados.</string>
-    <string name="dialog_destroy_message_for_managed_user">Com a configuração atual do Mainland, você não pode recriar o espaço do Island a menos que o controle dele seja cedido.\n\nTem certeza de que quer destruir o Island?</string>
-    <string name="dialog_rescind_message">Tem certeza de que quer ceder?\n\nVocê terá que passar novamente pelo processo de configuração para trazê-lo de volta, o que significa que o espaço do Island e todas as contas devem ser excluídas primeiro se seu dispositivo não estiver com Root.</string>
-    <string name="dialog_cannot_destroy_message">Para excluir todo o espaço do Island, favor abrir o sistema \"Configurações - Contas\" e selecionar \"Exluir o Perfil do Trabalho\".</string>
+    <string name="dialog_reactivate_message">Shima foi inesperadamente desativado, por favor, conceda a permissão de Administrador do Dispositivo para reativar.</string>
+    <string name="dialog_destroy_message">Tem certeza que quer destruir todo no Shima? Você perderá TODOS OS DADOS DO ISLAND.\n\nNão se preocupe, os apps e os dados fora do Shima NUNCA serão afetados.</string>
+    <string name="dialog_destroy_message_for_managed_user">Com a configuração atual do Mainland, você não pode recriar o espaço do Shima a menos que o controle dele seja cedido.\n\nTem certeza de que quer destruir o Shima?</string>
+    <string name="dialog_rescind_message">Tem certeza de que quer ceder?\n\nVocê terá que passar novamente pelo processo de configuração para trazê-lo de volta, o que significa que o espaço do Shima e todas as contas devem ser excluídas primeiro se seu dispositivo não estiver com Root.</string>
+    <string name="dialog_cannot_destroy_message">Para excluir todo o espaço do Shima, favor abrir o sistema \"Configurações - Contas\" e selecionar \"Exluir o Perfil do Trabalho\".</string>
     <string name="dialog_critical_app_warning">Este app (ou componente) é fundamental para que o sistema do Android e outros apps funcionem corretamente. Se continuar, alguns apps ou todo o sistema pode se tornar instável ou funcionar mal.\n\nVocê realmente quer continuar?</string>
     <string name="dialog_reinstall_system_app_warning">Este app (ou componente) do sistema não é instalado por algum motivo. Se continuar, alguns apps ou todo o sistema pode se tornar instável ou funcionar mal.\n\nVocê realmente quer continuar?</string>
     <string name="dialog_mainland_device_admin">A permissão de Administrador do Dispositivo é necessário para gerencial o Mainland.</string>
-    <string name="dialog_island_setup_failed">Desculpe, algo deu errado na configuração do Island. (etapa %1$d)</string>
+    <string name="dialog_island_setup_failed">Desculpe, algo deu errado na configuração do Shima. (etapa %1$d)</string>
 
     <string name="action_continue">Continuar</string>
     <string name="action_install">Instalar</string>
     <string name="action_upgrade">Atualizar</string>
     <string name="action_destroy">Destruir</string>
 
-    <string name="prompt_disable_sys_app_as_removal">O app do sistema só pode ser desativado. É semelhante à desinstalação de um app instalado.\n\nIsland não tem a permissão de fazer isso, em vez disso você será redirecionado ao app de configuração do sistema, lá você pode clicar no botão \"DESATIVAR\" para prosseguir.</string>
+    <string name="prompt_disable_sys_app_as_removal">O app do sistema só pode ser desativado. É semelhante à desinstalação de um app instalado.\n\nShima não tem a permissão de fazer isso, em vez disso você será redirecionado ao app de configuração do sistema, lá você pode clicar no botão \"DESATIVAR\" para prosseguir.</string>
     <string name="prompt_clone_app_to">Clonar app para…</string>
     <string name="toast_enable_disabled_system_app">Favor reativar este Clone.</string>
 
-    <string name="toast_setup_in_progress">Instalação do Island em andamento, aguarde…</string>
+    <string name="toast_setup_in_progress">Instalação do Shima em andamento, aguarde…</string>
     <string name="toast_successfully_cloned">%1$s foi clonado com sucesso.</string>
     <string name="toast_cannot_clone">Desculpe, não foi possível clonar %1$s.</string>
     <string name="toast_already_cloned">Já clonado</string>
@@ -123,24 +123,24 @@ o ambiente de Sandbox. O Island nunca coleta dados relacionados à sua privacida
     <string name="pref_general_header">Geral</string>
     <string name="pref_cat_app_launch_shortcuts">Atalhos de apps</string>
     <string name="pref_launch_shortcut_prefix_title">Atribuir prefixo de atalho</string>
-    <string name="pref_alt_shortcut_badge_summary">Use indicadores diferentes para atalhos de apps no Mainland e no Island.\n(Pode não funcionar em alguns dispositivos)</string>
+    <string name="pref_alt_shortcut_badge_summary">Use indicadores diferentes para atalhos de apps no Mainland e no Shima.\n(Pode não funcionar em alguns dispositivos)</string>
     <string name="pref_dynamic_shortcut_label_title">ID de atalho dinâmico</string>
     <string name="pref_dynamic_shortcut_label_summary">Adicionar prefixo à ID de atalho quando o app for suspenso e retirar o prefixo quando o app for ativo.\n(Pode não funcionar com alguns lançadores)</string>
     <string name="prompt_updating_shortcuts">Atualizando os atalhos…</string>
 
     <string name="pref_show_admin_message_title">Mais informações no diálogo \"Ação não permitida\".</string>
-    <string name="pref_show_admin_message_summary">Mostrar informações adicionais sobre o Island no diálogo de sistema \"Ação não permitida\".</string>
+    <string name="pref_show_admin_message_summary">Mostrar informações adicionais sobre o Shima no diálogo de sistema \"Ação não permitida\".</string>
     <string name="pref_preserve_app_ops">Preservar a supervisão de permissão para os apps suspensos</string>
-    <string name="pref_preserve_app_ops_description">O sistema do Android não preserva a supervisão de permissão (a.k.a. App Ops) e configurações (e.g. \"restrição em segundo plano\", \"mostrar sobre outros apps\") para os apps suspensos, permita que o Island faça isso por você.</string>
+    <string name="pref_preserve_app_ops_description">O sistema do Android não preserva a supervisão de permissão (a.k.a. App Ops) e configurações (e.g. \"restrição em segundo plano\", \"mostrar sobre outros apps\") para os apps suspensos, permita que o Shima faça isso por você.</string>
     <string name="pref_preserve_app_ops_adb_footnote">\n\n(O ADB Shell só é necessário para uma única configuração)</string>
     <string name="prompt_adb_app_ops_command">Por favor, execute este comando no ADB Shell:</string>
     <string name="action_copy">Copiar ao Clipboard</string>
 
     <string name="pref_scoped_settings_header">Configurações Avançadas</string>
-    <string name="prompt_island_not_yet_setup">O Island ainda não está configurado.</string>
+    <string name="prompt_island_not_yet_setup">O Shima ainda não está configurado.</string>
     <string name="action_rename">Renomear</string>
     <string name="pref_privacy_header">Proteção da Privacidade</string>
-    <string name="pref_privacy_summary">Apps no Island não podem acessar seus dados privados e os Apps no Mainland (e.g. contatos, registro de ligações, fotos, documentos) exceto dados globais do dispositivo: (incluindo, mas não limitado a)
+    <string name="pref_privacy_summary">Apps no Shima não podem acessar seus dados privados e os Apps no Mainland (e.g. contatos, registro de ligações, fotos, documentos) exceto dados globais do dispositivo: (incluindo, mas não limitado a)
         \n\n· IDs de dispositivos (proibidos no Android 10+)\n· SMS\n· Localização do dispositivo</string>
     <string name="pref_privacy_appops">No Android 9+, as exceções mencionadas também podem ser restringidas pela supervisão de permissão de apps (substituindo as permissões concedidas).\n\nSe a permissão for revogada aqui, o app nunca poderá ter acesso aos dados privados protegidos por essa permissão, mesmo que você conceda explicitamente a permissão no app.</string>
     <string name="pref_privacy_read_phone_state_title">Ler o ID do dispositivo e o estado da telefonia</string>
@@ -160,12 +160,12 @@ o ambiente de Sandbox. O Island nunca coleta dados relacionados à sua privacida
     <string name="prompt_manage_cross_profile_apps">Conceder permissão de cruzamento aos apps com esta capacidade.</string>
     <string name="prompt_manage_cross_profile_apps_footer"> Alguns apps do sistema podem sempre ser permitidos apesar desta configuração</string>
     <string name="pref_quick_controls_header">Controles rápidos via notificação</string>
-    <string name="pref_island_watcher_summary">Atalho para desativar o Island e parar todas as atividades dentro em segundo plano. O Island pode depois ser ativado sob demanda, iniciando qualquer um dos apps dentro.</string>
+    <string name="pref_island_watcher_summary">Atalho para desativar o Shima e parar todas as atividades dentro em segundo plano. O Shima pode depois ser ativado sob demanda, iniciando qualquer um dos apps dentro.</string>
     <string name="pref_app_watcher_summary">Atalho para suspender o app recentemente ativado e revogar as permissões temporariamente concedidas.</string>
     <string name="pref_reprovision_title">Consertar</string>
     <string name="pref_reprovision_summary">Isto pode ajudar a resolver alguns problemas. Todos os apps e dados serão preservados.</string>
     <string name="pref_destroy_title">Destruir permanentemente</string>
-    <string name="pref_destroy_summary">Excluir esta instância do Island, junto com todas os apps internos e seus dados.</string>
+    <string name="pref_destroy_summary">Excluir esta instância do Shima, junto com todas os apps internos e seus dados.</string>
     <string name="pref_rescind_title">Revogar</string>
     <string name="pref_rescind_summary">Revogar a permissão no Mainland. Todos os seus apps e dados estarão intactos (ativos), mas você não poderá mais:\n\n</string>
     <string name="pref_device_owner_title">Estender o poder ao Mainland</string>
@@ -175,7 +175,7 @@ o ambiente de Sandbox. O Island nunca coleta dados relacionados à sua privacida
 
     <string name="pref_about_header">Sobre</string>
     <string name="pref_about_version_title">Versão</string>
-    <string name="pref_about_open_source_title">Island é de software livre</string>
+    <string name="pref_about_open_source_title">Shima é de software livre</string>
     <string name="pref_about_open_source_summary">Visite-nos no GitHub</string>
     <string name="pref_about_licenses_title">Licenças</string>
 
@@ -195,8 +195,8 @@ o ambiente de Sandbox. O Island nunca coleta dados relacionados à sua privacida
 
     <string name="prompt_freeze_title">Suspender o app</string>
     <string name="prompt_freeze_text">Uma vez suspenso, o app desaparecerá até ser explicitamente ativado de novo.\n\nApp não poderá fazer absolutamente nada em estado de suspensão.</string>
-    <string name="prompt_clone_title">Clonar o app ao Island</string>
-    <string name="prompt_clone_text">App no Mainland pode ser clonado ao Island.\n\nA cópia funciona como uma instância recém instalada e tem seus próprios dados separados do Mainland. Eles só compartilham os binários executáveis para conservar espaço.</string>
+    <string name="prompt_clone_title">Clonar o app ao Shima</string>
+    <string name="prompt_clone_text">App no Mainland pode ser clonado ao Shima.\n\nA cópia funciona como uma instância recém instalada e tem seus próprios dados separados do Mainland. Eles só compartilham os binários executáveis para conservar espaço.</string>
 
     <!-- Tip cards -->
 

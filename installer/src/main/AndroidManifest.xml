@@ -1,8 +1,8 @@
 <manifest xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <permission android:name="com.oasisfeng.island.permission.INSTALLER" android:protectionLevel="signature" />
+    <permission android:name="com.theycallmejuzou.shima.permission.INSTALLER" android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.oasisfeng.island.permission.INSTALLER" />
+    <uses-permission android:name="com.theycallmejuzou.shima.permission.INSTALLER" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon" android:taskAffinity="">
@@ -24,7 +24,7 @@
             <intent-filter> <!-- without MIME type -->
                 <action android:name="android.intent.action.INSTALL_PACKAGE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.oasisfeng.island" />
+                <category android:name="com.theycallmejuzou.shima" />
                 <data android:scheme="file" />
                 <data android:scheme="package" />
                 <data android:scheme="content" />
@@ -48,7 +48,7 @@
         <service android:name=".AppSettingsHelperService" android:exported="false">
             <meta-data android:name="key" android:value="@string/setting_app_settings_helper" />
             <intent-filter>
-                <action android:name="com.oasisfeng.island.PersistentService" />
+                <action android:name="com.theycallmejuzou.shima.PersistentService" />
             </intent-filter>
         </service>
 

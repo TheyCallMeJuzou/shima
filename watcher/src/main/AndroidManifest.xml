@@ -25,7 +25,7 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <provider android:name=".IslandAppWatcher$AppStateTracker" android:authorities="com.oasisfeng.island.watcher"
+        <provider android:name=".IslandAppWatcher$AppStateTracker" android:authorities="com.theycallmejuzou.shima.watcher"
                   android:exported="false" android:enabled="@bool/since_api_26" android:directBootAware="true" tools:targetApi="26" />
 
     </application>

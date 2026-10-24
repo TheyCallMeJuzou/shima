@@ -204,7 +204,7 @@ class DevicePolicies(context: Context, val manager: DevicePolicyManager) {
 
     companion object {
 
-        const val ACTION_PACKAGE_UNFROZEN = "com.oasisfeng.island.action.PACKAGE_UNFROZEN"
+        const val ACTION_PACKAGE_UNFROZEN = "com.theycallmejuzou.shima.action.PACKAGE_UNFROZEN"
 
         private fun createProfileAppContext(context: Context, profile: UserHandle): Context {
             val profileAppInfo = LauncherAppsCompat(context).getApplicationInfoNoThrows(Modules.MODULE_ENGINE, 0, profile)

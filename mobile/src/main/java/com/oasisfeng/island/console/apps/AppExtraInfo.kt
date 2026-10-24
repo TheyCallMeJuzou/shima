@@ -89,6 +89,6 @@ private fun addExtraInfo(textColor: Color = Color(0xffaaaaaa), info: Application
 
 private fun buildPreviewAppInfo(): IslandAppInfo {
 	return IslandAppListProvider().createEntryWithLabel(ApplicationInfo().apply {
-		packageName = "com.oasisfeng.island"; targetSdkVersion = TIRAMISU; uid = 10021
+		packageName = "com.theycallmejuzou.shima"; targetSdkVersion = TIRAMISU; uid = 10021
 	}, null, "Island")
 }

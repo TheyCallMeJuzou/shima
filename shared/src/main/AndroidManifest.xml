@@ -22,13 +22,13 @@
                   android:directBootAware="true"
                   android:exported="false">
             <intent-filter>
-                <action android:name="com.oasisfeng.island.action.SHUTTLE" />
-                <category android:name="com.oasisfeng.island.category.PARENT_PROFILE" />
+                <action android:name="com.theycallmejuzou.shima.action.SHUTTLE" />
+                <category android:name="com.theycallmejuzou.shima.category.PARENT_PROFILE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <provider android:authorities="com.oasisfeng.island.shuttle" android:exported="false"
+        <provider android:authorities="com.theycallmejuzou.shima.shuttle" android:exported="false"
                   android:name="com.oasisfeng.island.shuttle.ShuttleProvider" android:grantUriPermissions="true"
                   android:directBootAware="true" />
 

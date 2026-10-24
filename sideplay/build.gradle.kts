@@ -6,6 +6,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
+        applicationId = "com.theycallmejuzou.shima.sideplay"
         minSdk = 31
         targetSdk = 31
     }

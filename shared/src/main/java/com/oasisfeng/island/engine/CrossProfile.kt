@@ -10,8 +10,8 @@ import com.oasisfeng.island.util.Users
 
 object CrossProfile {
 
-	const val CATEGORY_PARENT_PROFILE = "com.oasisfeng.island.category.PARENT_PROFILE"
-	const val CATEGORY_MANAGED_PROFILE = "com.oasisfeng.island.category.MANAGED_PROFILE"
+	const val CATEGORY_PARENT_PROFILE = "com.theycallmejuzou.shima.category.PARENT_PROFILE"
+	const val CATEGORY_MANAGED_PROFILE = "com.theycallmejuzou.shima.category.MANAGED_PROFILE"
 
 	/** The target activity must declare [CATEGORY_PARENT_PROFILE] and [Intent.CATEGORY_DEFAULT] in its intent-filter */
 	@JvmStatic fun decorateIntentForActivityInParentProfile(context: Context, intent: Intent) {

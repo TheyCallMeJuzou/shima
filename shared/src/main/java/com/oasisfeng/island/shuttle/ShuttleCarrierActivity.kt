@@ -54,7 +54,7 @@ class ShuttleCarrierActivity: Activity() {
 				if (SDK_INT < P || DevicePolicies(context).run { ! isManagedProfile || invoke(DPM::isUsingUnifiedPassword) }) false
 				else (context.getSystemService<KeyguardManager>()?.run { isDeviceLocked && isDeviceSecure } ?: false)
 
-		private const val ACTION = "com.oasisfeng.island.action.SHUTTLE"
+		private const val ACTION = "com.theycallmejuzou.shima.action.SHUTTLE"
 		private const val SILENT_LAUNCH_FLAGS = Intent.FLAG_ACTIVITY_NO_ANIMATION or Intent.FLAG_ACTIVITY_NO_USER_ACTION or
 				Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS or Intent.FLAG_ACTIVITY_NO_HISTORY //or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
 	}

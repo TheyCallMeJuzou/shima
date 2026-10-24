@@ -60,8 +60,8 @@ import java.net.URISyntaxException
 
 object IslandAppShortcut {
 
-	const val ACTION_LAUNCH_CLONE = "com.oasisfeng.island.action.LAUNCH_CLONE"
-	private const val ACTION_LAUNCH_APP = "com.oasisfeng.island.action.LAUNCH_APP"
+	const val ACTION_LAUNCH_CLONE = "com.theycallmejuzou.shima.action.LAUNCH_CLONE"
+	private const val ACTION_LAUNCH_APP = "com.theycallmejuzou.shima.action.LAUNCH_APP"
 	private const val SCHEME_PACKAGE = "package"            // Introduced in Island 2.8 (deprecated)
 	private const val SCHEME_ANDROID_APP = "android-app"    // Introduced in Island 5.0 (deprecated)
 	private const val SCHEME_APP = "app"                    // Introduced in Island 5.3 (replacing "android-app" used before to avoid shortcut intent corruption after reboot)

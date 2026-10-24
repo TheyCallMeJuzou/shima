@@ -223,7 +223,7 @@ public class IslandSetup {
 //	private static void activateManagedMainlandOrShowSetupGuide(final Activity activity, final int request_code) {
 //		//<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 //		//<root>
-//		//<profile-owner package="com.oasisfeng.island" name="" component="com.oasisfeng.island/com.oasisfeng.island.IslandDeviceAdminReceiver" userRestrictionsMigrated="true" />
+//		//<profile-owner package="com.theycallmejuzou.shima" name="" component="com.theycallmejuzou.shima/com.oasisfeng.island.IslandDeviceAdminReceiver" userRestrictionsMigrated="true" />
 //		//</root>
 //		String content = "<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\n<device-owner package=\"" + Modules.MODULE_ENGINE + "\" />";
 //		final String admin_component = DeviceAdmins.getComponentName(activity).flattenToString();

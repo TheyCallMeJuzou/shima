@@ -10,19 +10,19 @@
                       android:icon="@drawable/ic_landscape_black_24dp" />
 
     <permission android:name="${applicationId}.permission.FREEZE_PACKAGE"
-                android:permissionGroup="com.oasisfeng.island.permission-group.PACKAGE_ACCESS"
+                android:permissionGroup="${applicationId}.permission-group.PACKAGE_ACCESS"
                 android:protectionLevel="dangerous"
                 android:label="@string/permission_freeze_app_label"
                 android:description="@string/permission_freeze_app_description" />
 
     <permission android:name="${applicationId}.permission.LAUNCH_PACKAGE"
-                android:permissionGroup="com.oasisfeng.island.permission-group.PACKAGE_ACCESS"
+                android:permissionGroup="${applicationId}.permission-group.PACKAGE_ACCESS"
                 android:protectionLevel="dangerous"
                 android:label="@string/permission_launch_app_label"
                 android:description="@string/permission_launch_app_description" />
 
     <permission android:name="${applicationId}.permission.SUSPEND_PACKAGE"
-                android:permissionGroup="com.oasisfeng.island.permission-group.PACKAGE_ACCESS"
+                android:permissionGroup="${applicationId}.permission-group.PACKAGE_ACCESS"
                 android:protectionLevel="dangerous"
                 android:label="@string/permission_suspend_app_label"
                 android:description="@string/permission_suspend_app_description" />
@@ -49,11 +49,11 @@
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:exported="true">
             <intent-filter>
-                <action android:name="com.oasisfeng.island.action.FREEZE" />
-                <action android:name="com.oasisfeng.island.action.UNFREEZE" />
-                <action android:name="com.oasisfeng.island.action.LAUNCH" />
-                <action android:name="com.oasisfeng.island.action.SUSPEND" />
-                <action android:name="com.oasisfeng.island.action.UNSUSPEND" />
+                <action android:name="com.theycallmejuzou.shima.action.FREEZE" />
+                <action android:name="com.theycallmejuzou.shima.action.UNFREEZE" />
+                <action android:name="com.theycallmejuzou.shima.action.LAUNCH" />
+                <action android:name="com.theycallmejuzou.shima.action.SUSPEND" />
+                <action android:name="com.theycallmejuzou.shima.action.UNSUSPEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="package" />
                 <data android:scheme="packages" /> <!-- ssp: comma-separated package names -->
@@ -75,11 +75,11 @@
 
         <receiver android:name="com.oasisfeng.island.api.ApiReceiver" android:exported="true">
             <intent-filter>
-                <action android:name="com.oasisfeng.island.action.FREEZE" />
-                <action android:name="com.oasisfeng.island.action.UNFREEZE" />
-                <action android:name="com.oasisfeng.island.action.LAUNCH" />
-                <action android:name="com.oasisfeng.island.action.SUSPEND" />
-                <action android:name="com.oasisfeng.island.action.UNSUSPEND" />
+                <action android:name="com.theycallmejuzou.shima.action.FREEZE" />
+                <action android:name="com.theycallmejuzou.shima.action.UNFREEZE" />
+                <action android:name="com.theycallmejuzou.shima.action.LAUNCH" />
+                <action android:name="com.theycallmejuzou.shima.action.SUSPEND" />
+                <action android:name="com.theycallmejuzou.shima.action.UNSUSPEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="package" />
                 <data android:scheme="packages" /> <!-- ssp: comma-separated package names -->
@@ -93,7 +93,7 @@
             </intent-filter>
         </service>
 
-        <provider android:authorities="com.oasisfeng.island.settings"
+        <provider android:authorities="com.theycallmejuzou.shima.settings"
                   android:name="com.oasisfeng.settings.AppSettingsProvider"
                   android:exported="false" />
 

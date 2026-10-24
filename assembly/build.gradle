@@ -8,7 +8,7 @@ android {
     compileSdk this.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.oasisfeng.island"
+        applicationId "com.theycallmejuzou.shima"
         minSdkVersion this.minSdkVersion
         targetSdkVersion 34
         resourceConfigurations += ['en', 'zh', 'zh-rTW', 'pt-rBR']
@@ -22,6 +22,7 @@ android {
             firebaseCrashlytics.mappingFileUploadEnabled false
         }
         release {
+            firebaseCrashlytics.mappingFileUploadEnabled false     // google-services.json is a placeholder, no Firebase project to upload to
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -66,7 +67,6 @@ dependencies {
     completeImplementation project(':installer')
     completeImplementation project(':watcher')
     completeImplementation project(':open')
-    completeImplementation project(':ninja')
 
     //debugImplementation project(':media')
 

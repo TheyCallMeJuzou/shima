@@ -1,16 +1,32 @@
-# Island
+# Shima
 
-Island for Android
+Shima (島, "island") is a fork of [Island](https://github.com/oasisfeng/island) by Oasis Feng, based on its `dev` branch (v6.4.2).
+It installs as `com.theycallmejuzou.shima` and can live side-by-side with the original Island.
+
+### Differences from upstream
+
+* Application ID, `sharedUserId`, permissions, intent actions/categories and content provider authorities use the `com.theycallmejuzou.shima` prefix.
+  Java/Kotlin packages and Gradle namespaces are intentionally kept as `com.oasisfeng.island.*` to keep merging upstream changes easy.
+* User-visible name is "Shima".
+* The private `ninja` module (not published upstream) is dropped from the build.
+* `assembly/google-services.json` is a placeholder. Replace it with your own Firebase project's config to get analytics / crash reports.
+* The Open API (see below) uses the `com.theycallmejuzou.shima.*` action and permission names, so apps built for Island's API must target Shima explicitly.
+
+To pull in upstream changes: `git fetch upstream && git merge upstream/dev`.
 
 ## Build Instructions
 
-Island depends on ["deagle" library](https://github.com/oasisfeng/deagle), which must be cloned alongside Island in the same path.
+Requirements: JDK 17, Android SDK with platform `android-35` and build-tools `34.0.0`.
+
+Shima depends on ["deagle" library](https://github.com/oasisfeng/deagle) (branch `dev`), which must be cloned alongside Shima in the same path.
 
 ```
 \--
-  \- island
+  \- shima
   \- deagle
 ```
+
+Build the full debug APK with `./gradlew assembleCompleteNormalDebug` (output in `assembly/build/outputs/apk/`).
 
 This project is constructed into several modules, with **assembly** module as the build portal,
 to support separate "light" build for core modules, in the form of "product flavor" in Gradle build configuration.
