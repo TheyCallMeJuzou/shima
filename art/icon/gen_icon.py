@@ -1,126 +1,76 @@
-"""Shima launcher icon generator: one geometry -> SVG layers + Android VectorDrawables.
+"""Shima icon generator: one geometry -> SVG layers + Android VectorDrawables.
 
+Flat, sharp-edged style after Island's icon: paper-fold Mount Fuji with long shadow over a sakura sky and rose sea.
 Adaptive icon canvas is 108x108; visible area ~18..90, safe zone r=33 around (54,54).
 Usage: python gen_icon.py <out_dir>   (then legacy.sh <out_dir> for the pre-API-26 PNGs; needs ImageMagick with librsvg)
 """
-import math, pathlib, sys
+import pathlib, sys
 
 out = pathlib.Path(sys.argv[1]); out.mkdir(parents=True, exist_ok=True)
 
 # Palette: sakura + white
-SKY, SEA, WAVE = "#FFB7C5", "#C94F7C", "#DB7397"
-SUN = "#FFFFFF"
-BLOSSOM, BLOSSOM_CENTER = "#FFFFFF", "#EE6F96"
+SKY, CLOUD, SEA = "#FFB7C5", "#FFCCD7", "#C94F7C"
 FUJI_BODY, FUJI_CAP, FUJI_SHADE = "#FFEFF3", "#FFFFFF", "#8E2450"
-HORIZON = 64.0
+HORIZON, BASE = 64.0, 66.0
 
 def f(v): return f"{v:.2f}".rstrip("0").rstrip(".")
-def pts(cmds):
-    """cmds: list of (op, [x,y,...]) -> path string"""
-    return " ".join(op + " ".join(f(v) for v in vals) for op, vals in cmds)
+def poly(points, close=True):
+    return "M" + " L".join(f"{f(x)},{f(y)}" for x, y in points) + (" Z" if close else "")
+def scale(points, s, dx=0, dy=0): return [(x * s + dx, y * s + dy) for x, y in points]
+def lerp(a, b, t): return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+def x_on(seg_pts, y):   # x where a polyline (top -> bottom) crosses height y
+    for a, b in zip(seg_pts, seg_pts[1:]):
+        if min(a[1], b[1]) <= y <= max(a[1], b[1]): return lerp(a, b, (y - a[1]) / (b[1] - a[1]))[0]
+    raise ValueError(y)
 
-def affine(cmds, tx=0, ty=0, rot=0, s=1):
-    c, si = math.cos(math.radians(rot)), math.sin(math.radians(rot))
-    res = []
-    for op, vals in cmds:
-        nv = []
-        for i in range(0, len(vals), 2):
-            x, y = vals[i] * s, vals[i + 1] * s
-            nv += [x * c - y * si + tx, x * si + y * c + ty]
-        res.append((op, nv))
-    return res
+# --- Mount Fuji: straight flanks with one bend each (steep top, gentle foot), flat summit ---
+TOP_L, TOP_R = (49.0, 37.0), (59.0, 37.0)
+LEFT = [TOP_L, (39.0, 53.0), (24.0, BASE)]       # summit -> foot
+RIGHT = [TOP_R, (69.0, 53.0), (84.0, BASE)]
+FUJI = [LEFT[2], LEFT[1], TOP_L, TOP_R, RIGHT[1], RIGHT[2]]
 
-def circle(cx, cy, r):   # 4 cubic arcs (kappa), so it survives any tooling
-    k = 0.5523 * r
-    return pts([("M", [cx + r, cy]), ("C", [cx + r, cy + k, cx + k, cy + r, cx, cy + r]),
-                ("C", [cx - k, cy + r, cx - r, cy + k, cx - r, cy]), ("C", [cx - r, cy - k, cx - k, cy - r, cx, cy - r]),
-                ("C", [cx + k, cy - r, cx + r, cy - k, cx + r, cy]), ("Z", [])])
+SNOW_Y = 47.0                                    # zig-zag snow line below the summit
+lx, rx = x_on(LEFT, SNOW_Y), x_on(RIGHT, SNOW_Y)
+ZIG = [(lx + (rx - lx) * i / 6, y) for i, y in enumerate([SNOW_Y, 51.5, 47.6, 52.5, 47.6, 51.5, SNOW_Y])]
+CAP = [TOP_L, TOP_R] + ZIG[::-1]                 # summit -> right end of snow line -> zig-zag back to left
 
-# Sakura petal pointing up from origin, notched tip at y=-6
-PETAL = [("M", [0, 0]), ("C", [-2.7, -1.1, -3.2, -4.5, -1.3, -6.1]), ("L", [0, -5.1]), ("L", [1.3, -6.1]),
-         ("C", [3.2, -4.5, 2.7, -1.1, 0, 0]), ("Z", [])]
+FOLD_TOP, FOLD_BOT = (54.0, 37.0), (58.0, BASE)  # paper fold; right face is shaded
+SHADE = [FOLD_TOP, TOP_R, RIGHT[1], RIGHT[2], FOLD_BOT]
 
-def blossom(cx, cy, s, rot):
-    petals = " ".join(pts(affine(PETAL, cx, cy, rot + i * 72, s)) for i in range(5))
-    return petals, circle(cx, cy, 1.05 * s)
-
-def loose_petal(cx, cy, s, rot):   # a single drifting petal, centred on its own middle
-    return pts(affine(affine(PETAL, 0, 3), cx, cy, rot, s))
-
-# --- Mount Fuji (paper-fold, concave flanks) ---
-L0, LC, L2 = (49.0, 36.0), (41.0, 57.0), (24.0, 66.0)
-R0, RC, R2 = (59.0, 36.0), (67.0, 57.0), (84.0, 66.0)
-BASE = 66.0
-
-def quad_x_at_y(p0, c, p2, y):
-    a = p0[1] - 2 * c[1] + p2[1]; b = 2 * (c[1] - p0[1]); cc = p0[1] - y
-    t = (-b + math.sqrt(b * b - 4 * a * cc)) / (2 * a) if abs(a) > 1e-9 else -cc / b
-    if not 0 <= t <= 1: t = (-b - math.sqrt(b * b - 4 * a * cc)) / (2 * a)
-    return (1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * c[0] + t * t * p2[0], t
-
-def split_quad(p0, c, p2, t):   # de Casteljau: returns (first half ctrl, mid point, second half ctrl)
-    a = (p0[0] + (c[0] - p0[0]) * t, p0[1] + (c[1] - p0[1]) * t)
-    b = (c[0] + (p2[0] - c[0]) * t, c[1] + (p2[1] - c[1]) * t)
-    m = (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
-    return a, m, b
-
-SUMMIT = [(49, 36), (50.6, 35.1), (52.2, 36.0), (54.3, 34.7), (56.3, 35.9), (57.6, 35.1), (59, 36)]
-silhouette = pts([("M", list(L2)), ("Q", [*LC, *L0])] + [("L", list(p)) for p in SUMMIT[1:]] +
-                 [("Q", [*RC, *R2]), ("Z", [])])
-
-# Snow cap: above a zig-zag snow line
-SNOW_Y = 47.5
-lx, lt = quad_x_at_y(L0, LC, L2, SNOW_Y); rx, rt = quad_x_at_y(R0, RC, R2, SNOW_Y)
-lc1 = split_quad(L0, LC, L2, lt)[0]    # control point of the flank segment summit..snowline (same when reversed)
-rc1 = split_quad(R0, RC, R2, rt)[0]
-zig_x = [lx + (rx - lx) * i / 8 for i in range(9)]
-zig_y = [SNOW_Y, 51.2, 48.0, 52.4, 48.3, 52.6, 48.1, 51.4, SNOW_Y]
-zig = list(zip(zig_x, zig_y))
-# snowline-left -> up the left flank -> across the summit -> down the right flank -> zig-zag back
-cap = pts([("M", [lx, SNOW_Y]), ("Q", [*lc1, *L0])] + [("L", list(p)) for p in SUMMIT[1:]] +
-          [("Q", [*rc1, rx, SNOW_Y])] + [("L", list(p)) for p in reversed(zig[1:-1])] + [("Z", [])])
-
-FOLD_TOP, FOLD_BOT = (54.3, 34.7), (58.5, BASE)
-shade = pts([("M", list(FOLD_TOP)), ("L", [56.3, 35.9]), ("L", [57.6, 35.1]), ("L", [59, 36]),
-             ("Q", [*RC, *R2]), ("L", list(FOLD_BOT)), ("Z", [])])
-
-shadow = pts([("M", [44, BASE]), ("L", [84, BASE]), ("L", [118, 100]), ("L", [78, 100]), ("Z", [])])
+SHADOW = [(44.0, BASE), (84.0, BASE), (118.0, 100.0), (78.0, 100.0)]
 SHADOW_GRAD = dict(x1=66, y1=66, x2=88, y2=88, c1="#38000000", c2="#00000000")
 
-# --- Background ---
-sky = pts([("M", [0, 0]), ("L", [108, 0]), ("L", [108, HORIZON]), ("L", [0, HORIZON]), ("Z", [])])
-sea = pts([("M", [0, HORIZON]), ("L", [108, HORIZON]), ("L", [108, 108]), ("L", [0, 108]), ("Z", [])])
-sun = circle(74, 31, 8.5)
-b1_petals, b1_center = blossom(33, 33, 1.0, 12)
-b2_petals, b2_center = blossom(45.5, 23.5, 0.62, 40)
-p1 = loose_petal(26.5, 47, 0.62, -35)
-p2 = loose_petal(86, 47.5, 0.55, 55)
-p3 = loose_petal(59, 25, 0.5, 20)
+def pill(x, y, w, h):   # Island-style cloud bar: rectangle with semicircular ends
+    r = h / 2
+    return (f"M{f(x + r)},{f(y)} L{f(x + w - r)},{f(y)} A{f(r)},{f(r)} 0 0 1 {f(x + w - r)},{f(y + h)} "
+            f"L{f(x + r)},{f(y + h)} A{f(r)},{f(r)} 0 0 1 {f(x + r)},{f(y)} Z")
 
-def wave(x, y, w):   # two gentle humps
-    return f"M{f(x)},{f(y)} q{f(w/4)},{f(-w/5)} {f(w/2)},0 t{f(w/2)},0"
-waves = [wave(24, 74, 11), wave(32, 84, 12), wave(55, 78, 9), wave(72, 87, 10)]
+CLOUDS = " ".join([pill(33, 31, 13, 3.6), pill(29.5, 34.2, 12, 3.6),   # left pair
+                   pill(63, 27, 12, 3.6), pill(66.5, 30.2, 10, 3.6)])  # right pair
 
-BG = [("path", sky, SKY, 1.0), ("path", sun, SUN, 0.95),
-      ("path", b1_petals, BLOSSOM, 0.95), ("path", b1_center, BLOSSOM_CENTER, 1.0),
-      ("path", b2_petals, BLOSSOM, 0.9), ("path", b2_center, BLOSSOM_CENTER, 1.0),
-      ("path", p1, BLOSSOM, 0.85), ("path", p2, BLOSSOM, 0.85), ("path", p3, BLOSSOM, 0.8),
-      ("path", sea, SEA, 1.0)] + [("stroke", w, WAVE, 1.0) for w in waves]
-FG = [("grad", shadow, SHADOW_GRAD, 1.0), ("path", silhouette, FUJI_BODY, 1.0), ("path", cap, FUJI_CAP, 1.0),
-      ("path", shade, FUJI_SHADE, 0.13)]
+BG = [("path", poly([(0, 0), (108, 0), (108, HORIZON), (0, HORIZON)]), SKY, 1.0),
+      ("path", CLOUDS, CLOUD, 1.0),
+      ("path", poly([(0, HORIZON), (108, HORIZON), (108, 108), (0, 108)]), SEA, 1.0)]
+FG = [("grad", poly(SHADOW), SHADOW_GRAD, 1.0), ("path", poly(FUJI), FUJI_BODY, 1.0),
+      ("path", poly(CAP), FUJI_CAP, 1.0), ("path", poly(SHADE), FUJI_SHADE, 0.13)]
 
-# Monochrome (themed icons): Fuji with the snow line cut out, plus the sun
-band = [(x, y) for x, y in zig[1:-1]]
-band_path = pts([("M", [band[0][0], band[0][1]])] + [("L", [x, y]) for x, y in band[1:]] +
-                [("L", [x, y + 1.7]) for x, y in reversed(band)] + [("Z", [])])
-MONO = [("evenodd", silhouette + " " + band_path, "#FF000000", 1.0), ("path", circle(74, 31, 7), "#FF000000", 1.0)]
+def snow_band(zig, thickness):   # thin zig-zag strip, cut out of a silhouette with evenOdd
+    inner = zig[1:-1]
+    return poly(inner + [(x, y + thickness) for x, y in reversed(inner)])
+
+# Monochrome (Android 13 themed icons): Fuji silhouette with the snow line cut out
+MONO = [("evenodd", poly(FUJI) + " " + snow_band(ZIG, 1.8), "#FF000000", 1.0)]
+
+# 24dp in-app / notification glyph: same Fuji, fitted to x 1..23, base on y=18 (like Material's landscape icon)
+G = 22 / (FUJI[5][0] - FUJI[0][0]); GDX = 1 - FUJI[0][0] * G; GDY = 18 - BASE * G
+GLYPH = poly(scale(FUJI, G, GDX, GDY)) + " " + snow_band(scale(ZIG, G, GDX, GDY), 1.1)
 
 # --- Writers ---
 def argb_to_svg(c):   # #AARRGGBB -> (rgb, opacity)
     if len(c) == 9: return "#" + c[3:], int(c[1:3], 16) / 255
     return c, 1.0
 
-def svg(layers, size=108, extra=""):
+def svg(layers, size=108):
     defs, body = [], []
     for i, (kind, d, paint, alpha) in enumerate(layers):
         if kind == "grad":
@@ -128,19 +78,18 @@ def svg(layers, size=108, extra=""):
             defs.append(f'<linearGradient id="g{i}" gradientUnits="userSpaceOnUse" x1="{g["x1"]}" y1="{g["y1"]}" x2="{g["x2"]}" y2="{g["y2"]}">'
                         f'<stop offset="0" stop-color="{c1}" stop-opacity="{o1:.3f}"/><stop offset="1" stop-color="{c2}" stop-opacity="{o2:.3f}"/></linearGradient>')
             body.append(f'<path d="{d}" fill="url(#g{i})"/>')
-        elif kind == "stroke":
-            body.append(f'<path d="{d}" fill="none" stroke="{paint}" stroke-width="1.6" stroke-linecap="round" stroke-opacity="{alpha}"/>')
         else:
             rgb, o = argb_to_svg(paint)
             rule = ' fill-rule="evenodd"' if kind == "evenodd" else ""
             body.append(f'<path d="{d}" fill="{rgb}" fill-opacity="{o * alpha:.3f}"{rule}/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 108 108">'
-            f'<defs>{"".join(defs)}</defs>{extra}{"".join(body)}</svg>\n')
+            f'<defs>{"".join(defs)}</defs>{"".join(body)}</svg>\n')
+
+HEADER = '<!-- {} Generated by art/icon/gen_icon.py, do not edit by hand. -->'
 
 def vector(layers, comment):
-    needs_aapt = any(k == "grad" for k, *_ in layers)
-    ns = ' xmlns:aapt="http://schemas.android.com/aapt"' if needs_aapt else ""
-    lines = [f'<?xml version="1.0" encoding="utf-8"?>', f'<!-- {comment} Generated by art/icon/gen_icon.py, do not edit by hand. -->',
+    ns = ' xmlns:aapt="http://schemas.android.com/aapt"' if any(k == "grad" for k, *_ in layers) else ""
+    lines = ['<?xml version="1.0" encoding="utf-8"?>', HEADER.format(comment),
              f'<vector xmlns:android="http://schemas.android.com/apk/res/android"{ns}',
              '    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">']
     for kind, d, paint, alpha in layers:
@@ -150,8 +99,6 @@ def vector(layers, comment):
                       f'            <gradient android:type="linear" android:startX="{g["x1"]}" android:startY="{g["y1"]}" '
                       f'android:endX="{g["x2"]}" android:endY="{g["y2"]}" android:startColor="{g["c1"]}" android:endColor="{g["c2"]}"/>',
                       '        </aapt:attr>', '    </path>']
-        elif kind == "stroke":
-            lines.append(f'    <path android:pathData="{d}" android:strokeColor="{paint}" android:strokeWidth="1.6" android:strokeLineCap="round"/>')
         else:
             a = f' android:fillAlpha="{alpha:g}"' if alpha < 1 else ""
             rule = ' android:fillType="evenOdd"' if kind == "evenodd" else ""
@@ -159,11 +106,22 @@ def vector(layers, comment):
     lines.append('</vector>')
     return "\n".join(lines) + "\n"
 
-(out / "shima-icon-background.svg").write_text(svg(BG), encoding="utf-8")
-(out / "shima-icon-foreground.svg").write_text(svg(FG), encoding="utf-8")
-(out / "shima-icon-monochrome.svg").write_text(svg(MONO), encoding="utf-8")
-(out / "shima-icon-full.svg").write_text(svg(BG + FG, 432), encoding="utf-8")
-(out / "ic_launcher_background.xml").write_text(vector(BG, "Shima launcher icon background: sakura sky, white sun, blossoms, rose sea."), encoding="utf-8")
-(out / "ic_launcher_foreground.xml").write_text(vector(FG, "Shima launcher icon foreground: paper-fold Mount Fuji with long shadow."), encoding="utf-8")
-(out / "ic_launcher_monochrome.xml").write_text(vector(MONO, "Shima launcher icon monochrome layer (Android 13 themed icons)."), encoding="utf-8")
+def glyph(fill, comment):
+    return "\n".join([HEADER.format(comment),
+                      '<vector xmlns:android="http://schemas.android.com/apk/res/android"',
+                      '        android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">',
+                      f'    <path android:fillColor="{fill}" android:fillType="evenOdd"',
+                      f'        android:pathData="{GLYPH}"/>', '</vector>']) + "\n"
+
+def write(name, text): (out / name).write_text(text, encoding="utf-8")
+write("shima-icon-background.svg", svg(BG))
+write("shima-icon-foreground.svg", svg(FG))
+write("shima-icon-monochrome.svg", svg(MONO))
+write("shima-icon-full.svg", svg(BG + FG, 432))
+write("shima-glyph.svg", f'<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><path d="{GLYPH}" fill-rule="evenodd"/></svg>\n')
+write("ic_launcher_background.xml", vector(BG, "Shima launcher icon background: sakura sky with cloud bars, rose sea."))
+write("ic_launcher_foreground.xml", vector(FG, "Shima launcher icon foreground: paper-fold Mount Fuji with long shadow."))
+write("ic_launcher_monochrome.xml", vector(MONO, "Shima launcher icon monochrome layer (Android 13 themed icons)."))
+write("ic_island_black_24dp.xml", glyph("@android:color/black", "Shima glyph (Mount Fuji): profile tabs and clone dialog."))
+write("ic_landscape_black_24dp.xml", glyph("@color/action_icon", "Shima glyph (Mount Fuji): notifications, settings, permission group."))
 print("ok", out)
