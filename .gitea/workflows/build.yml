@@ -70,12 +70,6 @@ jobs:
           cp assembly/build/outputs/apk/completeNormal/release/*.apk "out/shima-$version-release.apk"
           ls -l out
 
-      - name: Upload APKs
-        uses: actions/upload-artifact@v4
-        with:
-          name: shima-${{ steps.apk.outputs.version }}-${{ gitea.sha }}
-          path: out/*.apk
-
       - name: Publish Gitea release
         if: startsWith(gitea.ref, 'refs/tags/v')
         env:
@@ -89,7 +83,17 @@ jobs:
           if [ "$TAG" != "v$VERSION" ]; then echo "Tag $TAG does not match versionName $VERSION"; exit 1; fi
           notes=$(awk -v v="## $VERSION" '$0 == v {found=1; next} found && /^## / {exit} found' CHANGELOG.md)
           body=$(jq -n --arg tag "$TAG" --arg name "Shima $VERSION" --arg notes "$notes" '{tag_name: $tag, name: $name, body: $notes}')
-          id=$(curl -sfS -X POST -H "Authorization: token $TOKEN" -H "Content-Type: application/json" -d "$body" "$API/releases" | jq -r .id)
+          id=$(curl -sf -H "Authorization: token $TOKEN" "$API/releases/tags/$TAG" | jq -r .id || true)   # Re-run: reuse
+          if [ -z "$id" ] || [ "$id" = "null" ]; then
+            id=$(curl -sfS -X POST -H "Authorization: token $TOKEN" -H "Content-Type: application/json" -d "$body" "$API/releases" | jq -r .id)
+          fi
           curl -sfS -X POST -H "Authorization: token $TOKEN" -F "attachment=@out/shima-$VERSION-release.apk" \
             "$API/releases/$id/assets?name=shima-$VERSION.apk" > /dev/null
           echo "Released $TAG (release id $id)"
+
+      - name: Upload APKs
+        if: always() && steps.apk.outcome == 'success'
+        uses: actions/upload-artifact@v3     # v4 is rejected by this Gitea ("not supported on GHES")
+        with:
+          name: shima-${{ steps.apk.outputs.version }}-${{ gitea.sha }}
+          path: out/*.apk
