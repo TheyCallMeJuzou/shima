@@ -30,7 +30,7 @@ public abstract class CrashReport {
 	private static final Supplier<FirebaseCrashlytics> sSingleton = Suppliers.memoize(() -> {
 		FirebaseApp.initializeApp(IslandApplication.get());
 		final FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
-		crashlytics.setCrashlyticsCollectionEnabled(true/*BuildConfig.CRASHLYTICS_ENABLED*/);
+		crashlytics.setCrashlyticsCollectionEnabled(BuildConfig.CRASHLYTICS_ENABLED);	// Persisted by Crashlytics, overriding the manifest default
 		crashlytics.setCustomKey("user", Process.myUserHandle().hashCode());			// Attach the current (Android) user ID to crash report.
 		return crashlytics;
 	});

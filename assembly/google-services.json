@@ -11,7 +11,7 @@
         "android_client_info": { "package_name": "com.theycallmejuzou.shima" }
       },
       "oauth_client": [],
-      "api_key": [ { "current_key": "PLACEHOLDER-replace-with-your-own-firebase-config" } ],
+      "api_key": [ { "current_key": "AIzaSyShima-placeholder-not-a-real-key0" } ],
       "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
     },
     {
@@ -20,7 +20,7 @@
         "android_client_info": { "package_name": "com.theycallmejuzou.shima.mobile" }
       },
       "oauth_client": [],
-      "api_key": [ { "current_key": "PLACEHOLDER-replace-with-your-own-firebase-config" } ],
+      "api_key": [ { "current_key": "AIzaSyShima-placeholder-not-a-real-key0" } ],
       "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
     }
   ],
