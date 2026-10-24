@@ -20,6 +20,8 @@ class IslandSettings(private val context: Context) {
 	inner class DynamicShortcutLabel: BooleanSetting(R.string.setting_dynamic_shortcut_label)
 	inner class AppSettingsHelper: PersistentServiceComponentSetting(R.string.setting_app_settings_helper)
 	inner class AppSettingsHelperExtended: BooleanSetting(R.string.setting_app_settings_helper_extended)
+	/** Use the system's Material You colours instead of the Shima seed colours (Android 12+) */
+	inner class DynamicColors: BooleanSetting(R.string.setting_dynamic_colors)
 
 	open inner class BooleanSetting(@StringRes prefKeyStringRes: Int, singleUser: Boolean = true)
 		: IslandSetting<Boolean>(prefKeyStringRes, singleUser) {

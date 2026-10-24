@@ -1,5 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory android:title="@string/pref_cat_appearance">
+
+        <SwitchPreferenceCompat
+            android:key="@string/setting_dynamic_colors"
+            android:title="@string/pref_dynamic_colors_title"
+            android:summary="@string/pref_dynamic_colors_summary"
+            android:persistent="false"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
     <CheckBoxPreference android:key="@string/key_preserve_app_ops"
         android:title="@string/pref_preserve_app_ops"
         android:summary="@string/pref_preserve_app_ops_description"

@@ -27,6 +27,7 @@ import com.oasisfeng.island.console.apps.AppListFragment;
 import com.oasisfeng.island.mobile.BuildConfig;
 import com.oasisfeng.island.mobile.R;
 import com.oasisfeng.island.setup.SetupActivity;
+import com.oasisfeng.island.ui.ShimaDynamicColors;
 import com.oasisfeng.island.util.CallerAwareActivity;
 import com.oasisfeng.island.util.DeviceAdmins;
 import com.oasisfeng.island.util.DevicePolicies;
@@ -39,6 +40,7 @@ import java.util.Optional;
 public class MainActivity extends FragmentActivity {
 
 	@Override protected void onCreate(final Bundle savedInstanceState) {
+		mSystemColors = ShimaDynamicColors.apply(this);
 		super.onCreate(savedInstanceState);
 		if (! Users.isParentProfile()) {
 			if (new DevicePolicies(this).isProfileOwner()) {    // Should generally not run in profile, unless the managed profile provision is interrupted or manually provision is not complete.
@@ -122,6 +124,11 @@ public class MainActivity extends FragmentActivity {
 		performOverallAnalyticsIfNeeded();
 	}
 
+	@Override protected void onResume() {
+		super.onResume();
+		if (! isFinishing() && ShimaDynamicColors.isEnabled(this) != mSystemColors) recreate();	// "Use system colors" toggled in Settings
+	}
+
 	private void startSetupWizard() {
 		startActivity(new Intent(this, SetupActivity.class));
 		performOverallAnalyticsIfNeeded();
@@ -138,6 +145,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private boolean mIsDeviceOwner;
+	private boolean mSystemColors;
 
 	private static final String TAG = "Island.Main";
 }

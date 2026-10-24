@@ -25,6 +25,7 @@ import com.oasisfeng.island.IslandNameManager
 import com.oasisfeng.island.MainActivity
 import com.oasisfeng.island.mobile.BuildConfig
 import com.oasisfeng.island.mobile.R
+import com.oasisfeng.island.ui.ShimaDynamicColors
 import com.oasisfeng.island.util.DevicePolicies
 import com.oasisfeng.island.util.Modules
 import com.oasisfeng.island.util.Users
@@ -33,6 +34,7 @@ import com.oasisfeng.island.util.Users.Companion.isParentProfile
 class SettingsActivity : FragmentActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
+		ShimaDynamicColors.apply(this)
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_settings)
 		setActionBar(findViewById(R.id.toolbar))

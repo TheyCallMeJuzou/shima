@@ -121,6 +121,9 @@ o ambiente de Sandbox. O Shima nunca coleta dados relacionados à sua privacidad
     <string name="settings_title">Configurações</string>
 
     <string name="pref_general_header">Geral</string>
+    <string name="pref_cat_appearance">Aparência</string>
+    <string name="pref_dynamic_colors_title">Usar cores do sistema</string>
+    <string name="pref_dynamic_colors_summary">Seguir as cores do papel de parede (Material You) em vez das cores sakura do Shima.</string>
     <string name="pref_cat_app_launch_shortcuts">Atalhos de apps</string>
     <string name="pref_launch_shortcut_prefix_title">Atribuir prefixo de atalho</string>
     <string name="pref_alt_shortcut_badge_summary">Use indicadores diferentes para atalhos de apps no Mainland e no Shima.\n(Pode não funcionar em alguns dispositivos)</string>

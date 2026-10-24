@@ -8,6 +8,7 @@ import android.os.Build.VERSION_CODES.O
 import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.preference.Preference
@@ -17,6 +18,7 @@ import com.oasisfeng.island.appops.AppOpsCompat.GET_APP_OPS_STATS
 import com.oasisfeng.island.mobile.R
 import com.oasisfeng.island.settings.IslandSettings.BooleanSetting
 import com.oasisfeng.island.shortcut.IslandAppShortcut
+import com.oasisfeng.island.ui.ShimaDynamicColors
 import com.oasisfeng.island.util.DPM
 import com.oasisfeng.island.util.DevicePolicies
 import com.oasisfeng.island.util.Modules
@@ -68,6 +70,9 @@ class GeneralPreferenceFragment: SettingsActivity.SubPreferenceFragment(R.xml.pr
                                 val cm = context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
                                 cm?.setPrimaryClip(ClipData.newPlainText(null, cmd))
                             }.show() }}}}
+
+        setupSetting(settings.DynamicColors(), visible = ShimaDynamicColors.isAvailable(), onChange = { true.also {
+            Handler(Looper.getMainLooper()).post { activity?.recreate() }}})     // After the new value is saved
 
         setupSetting(settings.AppSettingsHelper())
         setupSetting(settings.AppSettingsHelperExtended())

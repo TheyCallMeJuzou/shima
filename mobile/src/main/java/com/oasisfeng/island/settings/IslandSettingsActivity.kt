@@ -62,6 +62,7 @@ import com.oasisfeng.island.mobile.BuildConfig
 import com.oasisfeng.island.mobile.R
 import com.oasisfeng.island.notification.NotificationIds
 import com.oasisfeng.island.setup.IslandSetup
+import com.oasisfeng.island.ui.ShimaDynamicColors
 import com.oasisfeng.island.util.*
 import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
 
@@ -262,6 +263,7 @@ import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
 class IslandSettingsActivity: FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ShimaDynamicColors.apply(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         setActionBar(findViewById(R.id.toolbar))
