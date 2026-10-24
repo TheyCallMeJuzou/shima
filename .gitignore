@@ -18,3 +18,8 @@ build
 
 # OSX files
 .DS_Store
+
+# Release signing credentials and keys
+/keystore.properties
+*.keystore
+*.jks

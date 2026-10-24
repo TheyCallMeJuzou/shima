@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+
+// Release signing credentials live in keystore.properties at the project root (not in git, see README).
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+if (keystorePropertiesFile.exists()) keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
 
 android {
     namespace 'com.oasisfeng.island'
@@ -17,12 +20,20 @@ android {
 
     buildFeatures.dataBinding true
 
-    buildTypes {
-        debug {
-            firebaseCrashlytics.mappingFileUploadEnabled false
-        }
+    signingConfigs {
         release {
-            firebaseCrashlytics.mappingFileUploadEnabled false     // google-services.json is a placeholder, no Firebase project to upload to
+            if (! keystoreProperties.isEmpty()) {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (! keystoreProperties.isEmpty()) signingConfig signingConfigs.release     // Otherwise the release APK is unsigned
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

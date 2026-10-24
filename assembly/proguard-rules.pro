@@ -35,3 +35,8 @@
 # More debugging info (line number)
 -renamesourcefileattribute SourceFile
 -keepattributes SourceFile,LineNumberTable
+
+# Shima: settings screens are referenced only by class name in preference XML (android:fragment) and instantiated
+# by FragmentManager, same for custom preferences inflated from XML. Without these, R8 strips them from release builds.
+-keep class * extends androidx.preference.PreferenceFragmentCompat { public <init>(); }
+-keep class * extends androidx.preference.Preference { public <init>(android.content.Context, android.util.AttributeSet); }

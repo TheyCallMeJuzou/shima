@@ -1,0 +1,4 @@
+[submodule "deagle"]
+	path = deagle
+	url = https://github.com/oasisfeng/deagle.git
+	branch = dev

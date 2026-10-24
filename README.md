@@ -11,7 +11,11 @@ It installs as `com.theycallmejuzou.shima` and can live side-by-side with the or
   Java/Kotlin packages and Gradle namespaces are intentionally kept as `com.oasisfeng.island.*` to keep merging upstream changes easy.
 * User-visible name is "Shima".
 * The private `ninja` module (not published upstream) is dropped from the build.
-* `assembly/google-services.json` is a placeholder. Replace it with your own Firebase project's config to get analytics / crash reports.
+* No analytics or crash reporting: Island's Google Analytics, Firebase Analytics / Crashlytics / Remote Config are removed;
+  events and handled exceptions are only written to logcat.
+* Material 3 UI with a colour scheme generated from seed `#C94F7C` (`art/theme/gen_theme.mjs`), optional system (Material You) colours,
+  sakura launcher icon (`art/icon/`), and Settings on AndroidX Preference.
+* Opt-in "Pick files from Mainland apps" in Shima's own settings: personal apps' file and photo pickers can open files in the work profile.
 * The Open API (see below) uses the `com.theycallmejuzou.shima.*` action and permission names, so apps built for Island's API must target Shima explicitly.
 
 To pull in upstream changes: `git fetch upstream && git merge upstream/dev`.
@@ -20,15 +24,30 @@ To pull in upstream changes: `git fetch upstream && git merge upstream/dev`.
 
 Requirements: JDK 17, Android SDK with platform `android-35` and build-tools `34.0.0`.
 
-Shima depends on ["deagle" library](https://github.com/oasisfeng/deagle) (branch `dev`), which must be cloned alongside Shima in the same path.
+Shima depends on the ["deagle" library](https://github.com/oasisfeng/deagle), included as a git submodule pinned to the tested commit:
 
 ```
-\--
-  \- shima
-  \- deagle
+git clone --recurse-submodules https://github.com/TheyCallMeJuzou/shima.git
+# or, in an existing clone:
+git submodule update --init
 ```
 
-Build the full debug APK with `./gradlew assembleCompleteNormalDebug` (output in `assembly/build/outputs/apk/`).
+Build the full APK with `./gradlew assembleCompleteNormalDebug` or `./gradlew assembleCompleteNormalRelease`
+(output in `assembly/build/outputs/apk/`).
+
+### Release signing
+
+Release builds are signed with the key described in `keystore.properties` at the project root (not in git):
+
+```
+storeFile=/path/to/shima-signing.keystore
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
+
+Without that file the release APK is unsigned. Updates must always be signed with the same key: Shima is the
+work profile's owner, so an APK signed with another key can only be installed after removing the work profile.
 
 This project is constructed into several modules, with **assembly** module as the build portal,
 to support separate "light" build for core modules, in the form of "product flavor" in Gradle build configuration.
