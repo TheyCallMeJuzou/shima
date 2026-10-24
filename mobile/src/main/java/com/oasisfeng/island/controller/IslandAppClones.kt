@@ -30,7 +30,7 @@ import androidx.lifecycle.viewModelScope
 import com.oasisfeng.android.app.Activities
 import com.oasisfeng.android.content.pm.LauncherAppsCompat
 import com.oasisfeng.android.google.GooglePlayStore
-import com.oasisfeng.android.ui.Dialogs
+import com.oasisfeng.island.ui.Dialogs
 import com.oasisfeng.android.ui.WebContent
 import com.oasisfeng.android.util.Apps
 import com.oasisfeng.island.Config

@@ -88,7 +88,7 @@ the sandbox environment. Shima never collect data related to your privacy, pleas
     <string name="dialog_greenify_explanation">To save memory and avoid unnecessary battery consumption, Shima has no background services in design. Instead it delegates the automatic freezing job to Greenify, taking advantage of its sophisticated automatic hibernation management.</string>
     <string name="dialog_greenify_version_too_low">Greenify needs to be upgraded to a newer version.</string>
     <string name="dialog_reactivate_message">Shima was unexpectedly deactivated, please grant the Device Admin permission to re-activate.</string>
-    <string name="dialog_destroy_message">Are you sure you want to destroy the whole Shima? You will LOSE ALL THE DATA IN ISLAND.\n\nDon\'t worry, apps and data outside Shima will NEVER be affected.</string>
+    <string name="dialog_destroy_message">Are you sure you want to destroy the whole Shima? You will LOSE ALL THE DATA IN SHIMA.\n\nDon\'t worry, apps and data outside Shima will NEVER be affected.</string>
     <string name="dialog_destroy_message_for_managed_user">If Mainland is also managed by Shima, you cannot re-create Shima space unless the control for Mainland is rescinded.\n\nAre you sure you still want to destroy the Shima?</string>
     <string name="dialog_rescind_message">Are you sure to rescind?\n\nYou will have to go through the setup flow again to bring it back, that means Shima space and all accounts must be removed first if your device is not rooted.</string>
     <string name="dialog_cannot_destroy_message">To remove the whole Shima space, please open system \"Settings - Accounts\" and select \"Remove work profile\".</string>

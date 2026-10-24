@@ -62,7 +62,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.oasisfeng.android.os.UserHandles;
-import com.oasisfeng.android.ui.Dialogs;
+import com.oasisfeng.island.ui.Dialogs;
 import com.oasisfeng.android.ui.WebContent;
 import com.oasisfeng.android.util.Apps;
 import com.oasisfeng.android.widget.Toasts;

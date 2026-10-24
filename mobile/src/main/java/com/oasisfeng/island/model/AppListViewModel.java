@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Application;
 import android.app.SearchManager;
 import android.content.Context;
@@ -38,7 +37,7 @@ import com.oasisfeng.android.app.Activities;
 import com.oasisfeng.android.base.Scopes;
 import com.oasisfeng.android.databinding.recyclerview.ItemBinder;
 import com.oasisfeng.android.os.UserHandles;
-import com.oasisfeng.android.ui.Dialogs;
+import com.oasisfeng.island.ui.Dialogs;
 import com.oasisfeng.androidx.lifecycle.NonNullMutableLiveData;
 import com.oasisfeng.common.app.BaseAppListViewModel;
 import com.oasisfeng.island.analytics.Analytics;
@@ -372,7 +371,7 @@ public class AppListViewModel extends BaseAppListViewModel<AppViewModel> {
 			if (greenify_installed && unavailable_or_version_too_low)
 				message += "\n\n" + context.getString(R.string.dialog_greenify_version_too_low);
 			final int button = ! greenify_installed ? R.string.action_install : ! greenify_ready ? R.string.action_upgrade : R.string.action_continue;
-			new AlertDialog.Builder(context).setTitle(R.string.dialog_greenify_title).setMessage(message).setPositiveButton(button, (d, w) -> {
+			Dialogs.builder(context).setTitle(R.string.dialog_greenify_title).setMessage(message).setPositiveButton(button, (d, w) -> {
 				if (! unavailable_or_version_too_low) {
 					Scopes.app(context).markOnly(mark);
 					greenify(context, app);

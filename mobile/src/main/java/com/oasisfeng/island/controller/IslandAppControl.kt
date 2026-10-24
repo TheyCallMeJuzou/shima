@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import com.oasisfeng.android.app.Activities
 import com.oasisfeng.android.content.IntentCompat
-import com.oasisfeng.android.ui.Dialogs
+import com.oasisfeng.island.ui.Dialogs
 import com.oasisfeng.android.util.Apps
 import com.oasisfeng.android.widget.Toasts
 import com.oasisfeng.island.analytics.Analytics.Param.ITEM_CATEGORY

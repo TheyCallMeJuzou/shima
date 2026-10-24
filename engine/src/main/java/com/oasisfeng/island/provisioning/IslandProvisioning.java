@@ -55,7 +55,7 @@ import androidx.annotation.WorkerThread;
 
 import com.oasisfeng.android.content.IntentCompat;
 import com.oasisfeng.android.content.IntentFilters;
-import com.oasisfeng.android.ui.Dialogs;
+import com.oasisfeng.island.ui.Dialogs;
 import com.oasisfeng.android.util.SafeAsyncTask;
 import com.oasisfeng.android.util.Suppliers;
 import com.oasisfeng.android.widget.Toasts;

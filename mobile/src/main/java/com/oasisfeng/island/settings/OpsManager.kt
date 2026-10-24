@@ -12,7 +12,7 @@ import android.os.Process
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.oasisfeng.android.os.UserHandles
-import com.oasisfeng.android.ui.Dialogs
+import com.oasisfeng.island.ui.Dialogs
 import com.oasisfeng.android.util.Apps
 import com.oasisfeng.island.appops.AppOpsHelper
 import com.oasisfeng.island.data.helper.hidden

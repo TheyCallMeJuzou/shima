@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.preference.Preference
 import androidx.preference.TwoStatePreference
-import com.oasisfeng.android.ui.Dialogs
+import com.oasisfeng.island.ui.Dialogs
 import com.oasisfeng.island.appops.AppOpsCompat.GET_APP_OPS_STATS
 import com.oasisfeng.island.mobile.R
 import com.oasisfeng.island.settings.IslandSettings.BooleanSetting

@@ -8,7 +8,6 @@ import static java.util.stream.Collectors.toList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -24,7 +23,8 @@ import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 
-import com.oasisfeng.android.ui.Dialogs;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.oasisfeng.island.ui.Dialogs;
 import com.oasisfeng.android.util.SafeAsyncTask;
 import com.oasisfeng.common.app.AppInfo;
 import com.oasisfeng.common.app.AppListProvider;
@@ -140,7 +140,7 @@ public class IslandSetup {
 	}
 
 	@OwnerUser public static void requestDeviceOrProfileOwnerDeactivation(final Activity activity) {
-		new AlertDialog.Builder(activity).setTitle(R.string.dialog_title_warning).setMessage(R.string.dialog_rescind_message)
+		Dialogs.builder(activity).setTitle(R.string.dialog_title_warning).setMessage(R.string.dialog_rescind_message)
 				.setPositiveButton(android.R.string.no, null).setNeutralButton(R.string.action_rescind, (d, w) -> {
 					try {
 						final DevicePolicies policies = new DevicePolicies(activity);
@@ -183,7 +183,7 @@ public class IslandSetup {
 			showPromptForProfileManualRemoval(activity);
 			return;
 		}
-		new AlertDialog.Builder(activity).setTitle(R.string.dialog_title_warning)
+		Dialogs.builder(activity).setTitle(R.string.dialog_title_warning)
 				.setMessage(R.string.dialog_destroy_message)
 				.setPositiveButton(android.R.string.no, null)
 				.setNeutralButton(R.string.action_destroy, (dd, ww) -> requestProfileRemovalConfirmed(activity)).show();
@@ -192,14 +192,14 @@ public class IslandSetup {
 	private static void requestProfileRemovalConfirmed(final Activity activity) {
 		if (new Shuttle(activity, Users.getParentProfile()).invokeNoThrows(c -> new DevicePolicies(c).isProfileOwner()) == FALSE)
 			destroyProfile(activity);
-		else new AlertDialog.Builder(activity).setTitle(R.string.dialog_title_warning)
+		else Dialogs.builder(activity).setTitle(R.string.dialog_title_warning)
 				.setMessage(R.string.dialog_destroy_message_for_managed_user)
 				.setPositiveButton(android.R.string.no, null)
 				.setNeutralButton(R.string.action_destroy, (d, w) -> destroyProfile(activity)).show();
 	}
 
 	private static void showPromptForProfileManualRemoval(final Activity activity) {
-		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity).setMessage(R.string.dialog_cannot_destroy_message)
+		final MaterialAlertDialogBuilder dialog = Dialogs.builder(activity).setMessage(R.string.dialog_cannot_destroy_message)
 				.setNegativeButton(android.R.string.ok, null);
 		final Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
 		if (intent.resolveActivity(activity.getPackageManager()) == null) intent.setAction(Settings.ACTION_SETTINGS);	// Fallback to entrance of Settings

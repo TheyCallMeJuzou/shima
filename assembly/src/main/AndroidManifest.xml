@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:sharedUserId="com.theycallmejuzou.shima"
-    android:versionCode="64200" android:versionName="6.4.2">
+    android:versionCode="64201" android:versionName="6.4.2-shima.1">   <!-- Island 6.4.2 (64200) + Shima release number, see CHANGELOG.md -->
 
     <application tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
 

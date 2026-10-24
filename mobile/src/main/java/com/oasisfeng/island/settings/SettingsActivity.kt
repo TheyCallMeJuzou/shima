@@ -19,7 +19,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.oasisfeng.android.app.Activities
 import com.oasisfeng.android.google.GooglePlayStore
-import com.oasisfeng.android.ui.Dialogs
+import com.oasisfeng.island.ui.Dialogs
 import com.oasisfeng.island.Config
 import com.oasisfeng.island.IslandNameManager
 import com.oasisfeng.island.MainActivity

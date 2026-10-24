@@ -51,7 +51,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
 import com.oasisfeng.android.content.pm.enableComponent
 import com.oasisfeng.android.content.pm.getComponentName
-import com.oasisfeng.android.ui.Dialogs
+import com.oasisfeng.island.ui.Dialogs
 import com.oasisfeng.android.ui.WebContent
 import com.oasisfeng.island.Config
 import com.oasisfeng.island.IslandNameManager
@@ -239,7 +239,7 @@ import com.oasisfeng.island.util.DevicePolicies.PreferredActivity
                 override fun afterTextChanged(s: Editable) {
                     if (s.any { it < ' ' }) error = getString(R.string.prompt_invalid_input) }}) }
         val padding = resources.getDimensionPixelSize(R.dimen.margin_medium)
-        AlertDialog.Builder(activity).setView(FrameLayout(activity).apply { setPadding(padding, padding, padding, 0); addView(editText) })
+        Dialogs.builder(activity).setView(FrameLayout(activity).apply { setPadding(padding, padding, padding, 0); addView(editText) })
             .setPositiveButton(android.R.string.ok) { _,_ -> if (editText.error == null) onIslandRenamed(editText.text.toString()) }
             .setNegativeButton(android.R.string.cancel, null).show()
     }
