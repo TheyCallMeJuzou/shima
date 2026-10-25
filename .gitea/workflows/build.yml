@@ -45,6 +45,11 @@ jobs:
           if [ -z "$KEYSTORE_BASE64" ]; then echo "No signing secrets available: the release APK stays unsigned."; exit 0; fi
           keystore="${RUNNER_TEMP:-/tmp}/shima-signing.keystore"
           echo "$KEYSTORE_BASE64" | base64 -d > "$keystore"
+          # Check the secrets fit together now, instead of failing minutes later in packaging
+          echo "Keystore file SHA-256: $(sha256sum "$keystore" | cut -c1-16)"
+          if ! out=$(keytool -list -keystore "$keystore" -storepass:env STORE_PASSWORD -alias "$KEY_ALIAS" 2>&1); then
+            echo "::error::SIGNING_STORE_PASSWORD / SIGNING_KEY_ALIAS don't open SIGNING_KEYSTORE_BASE64: $(echo "$out" | tail -1)"; exit 1
+          fi
           printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
             "$keystore" "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > keystore.properties
 
